@@ -1,8 +1,41 @@
 # Downloaded release application QA
 
-## Current release: 0.1.1
+## Current release: 0.1.2
 
-**PASS — actual publicly downloaded [0.1.1 assets](https://github.com/t1seo/marginote/releases/tag/0.1.1), freshly installed in isolated Obsidian 1.10.6.** Verified September 19, 2026. All three downloaded, installed, and tagged-build hashes agree; GitHub asset digests agree too. See [published asset identity](verification.md#published-asset-identity).
+**Final observed checks: PASS, with retained intermittent-failure limits.** Actual publicly downloaded [0.1.2 assets](https://github.com/t1seo/marginote/releases/tag/0.1.2) were freshly installed in isolated Obsidian 1.10.6 on September 19, 2026. All three downloaded and installed hashes match the [published identity](verification.md#published-asset-identity). Public attestation and retained-bundle verification passed separately.
+
+| Executed group | Final observation |
+| --- | --- |
+| Fresh installation | New runtime instance, version 0.1.2, no saved data, actual settings UI defaults cards / nearby |
+| Maintained suite | 66 passed across the initial run and targeted remaining checks |
+| Reading pop-out | Four passed |
+| Proximity and continuous left/below/right movement in both modes | 22 passed |
+| Downloaded runtime CSS, modes/themes/hover | Eight passed |
+| Wrapped-text selection | Four passed |
+
+These groups overlap in behavior. This was not one uninterrupted all-green run. The initial 43 maintained scenarios and eight content scenarios passed, followed by a timeout waiting for the image card after moving Live Preview into a pop-out. Both fixture files were byte-identical to their originals, unlike the separate earlier candidate incident involving an altered alias. On the same fixture, a targeted trace repeating the IME and content sequence observed no active card before clicking, correct document ownership, collapsed selection, no composition, and successful image load after the click. The unchanged five window assertions then passed without instrumentation, followed by six regressions, three list/fence checks and the save-failure check. **The original pop-out timeout's cause remains unestablished.** Successful repeats do not constitute a diagnosed product fix.
+
+The first downloaded-CSS comparison passed styles and selections but failed absolute paragraph coordinates in Live Preview. The two paragraphs and all glyphs were translated upward by exactly 32.5 pixels, without changed sizes or wrapping. A controlled scrollTop 0 → 32.5 → 0 comparison reproduced those exact coordinates and restored the baseline. The final helper sets the baseline's top scroll position before applying the unchanged geometry assertions. Eight groups and four selections passed with the installed runtime stylesheet untouched. The event that originally set the offset was not captured.
+
+Before installation, the isolated host had no renderer target. Only its recorded process was restarted using the same binary, arguments, profile and files; no local build was copied. The renderer-loss cause is unknown. The old plugin/settings folder, all **389 preceding content files**, and every failed-run fixture were preserved. Final content count: **414**. No page or error-level console errors were collected during the completed checks.
+
+Cleanup restored all temporary method descriptors and event listeners, removed probes, closed pop-outs, and left one correctly owned main controller with no active card or pending task. The English Demo 8 was restored to Reading View at the top with cards / nearby, then CDP disconnected. The app remained running for the separate native-directory installation. Local receipts are retained under ignored .qa/release/downloaded-0.1.2-app/, including the original failed execution and the final summary; neither overwrites the other.
+
+## Native directory installation: 0.1.2
+
+The native Obsidian 1.10.6 Browse search returned Marginote by t1seo. Its normal Install and Enable buttons installed version 0.1.2 with fresh cards / nearby defaults. The previous plugin/data folder and 414 preceding content files were backed up or hashed before uninstalling the previous QA installation.
+
+Obsidian's installer appends the exact 18-byte comment `\n/* nosourcemap */` to main.js. The first raw-release hash assertion correctly detected this difference before enable. Read-only inspection of the running host installer and its constant established the transformation. The installed main.js is exactly the verified original plus that comment, with SHA-256 **85811541c91d3980d1aa94dad67021ed25ee01881f6d67b699ae40e38e8ebedc**. Manifest and CSS match the original release bytes exactly. Release attestations cover the original assets; the host-annotated copy is checked by this exact byte relationship and its separate fixed hash.
+
+Post-install proximity **22/22** and Reading pop-out **4/4** passed against those installed bytes. The final fixed hashes, enabled-plugin list, all 414 preceding content files and backup hashes remained unchanged. Two new fixtures brought the final content count to 416. No runtime errors were collected. A native Browse navigation helper initially expected one Escape to close the search; the first Escape returned from plugin details instead. A second normal Escape closed Browse. Both setup receipts remain preserved.
+
+The English Demo 8 was restored to Reading View at the top with cards / nearby, no pop-outs, mismatched owners, active cards, pending work or probes. CDP was disconnected. The recorded QA process and all recorded children were then stopped, its debugging endpoint closed, and no owned disk-image mount remained. The excluded personal Obsidian instance remained running; the vault, profiles and every backup were retained. Native evidence is under ignored .qa/release/community-install-0.1.2/ and final-cleanup-0.1.2.json.
+
+<a id="current-release-011"></a>
+
+## Historical release: 0.1.1
+
+**PASS — actual publicly downloaded [0.1.1 assets](https://github.com/t1seo/marginote/releases/tag/0.1.1), freshly installed in isolated Obsidian 1.10.6.** Verified September 19, 2026. All three downloaded, installed, and tagged-build hashes agree; GitHub asset digests agree too. See [historical published asset identity](verification-0.1.1.md#published-asset-identity).
 
 | Executed group | Result |
 | --- | --- |

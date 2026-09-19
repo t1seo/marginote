@@ -1,6 +1,6 @@
 # Release candidate application QA
 
-**Historical record.** The later [downloaded 0.1.0 review](downloaded-app-qa.md) found additional Reading view pop-out failures and supersedes this earlier passing gate. A 0.1.1 correction is being verified; see [release verification](verification.md) for the current state. The results below remain the observations from the earlier candidate run.
+**Historical record.** The later [downloaded 0.1.0 review](downloaded-app-qa.md#historical-release-010) found additional Reading view pop-out failures and superseded this earlier passing gate. The 0.1.1 correction was subsequently published and verified; see [release verification](verification.md) for the current 0.1.2 release. The results below remain the observations from the earlier candidate run.
 
 Release candidate: **Marginote 0.1.0**. Date: September 19, 2026.
 

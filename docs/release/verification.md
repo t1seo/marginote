@@ -1,68 +1,58 @@
 # Release verification
 
-**[Marginote 0.1.1 is published](https://github.com/t1seo/marginote/releases/tag/0.1.1). Candidate and actual downloaded-application QA passed. The Community review is complete and the listing is public; its two warnings, one recommendation, and native installation checkpoint are recorded separately.** Verification date: September 19, 2026.
+**[Marginote 0.1.2 is published](https://github.com/t1seo/marginote/releases/tag/0.1.2), its Community review is complete, and native-directory installation passed.** Verified on September 19, 2026. The source gate, candidate application checks on Obsidian 1.10.6 and 1.13.7, and actual public provenance verification passed. Final downloaded-application checks passed across initial and targeted runs; earlier intermittent failures remain documented with their limits.
 
-This patch restores pointer-following proximity previews as the fresh-install default, preserves their pointer across scrolling and editor virtualization, and fixes Reading View links adopted into a pop-out window. Saved trigger choices remain intact. The new English demonstration shows activation to the left, below, and right in Reading View and Live Preview.
+This patch removes unused runtime codecs, adds searchable settings on Obsidian 1.13+, uses compatible dotted borders for link underlines, and signs all three installation assets. The left/below/right proximity behavior introduced in 0.1.1 remains covered in both Reading View and Live Preview. Saved preview choices remain intact. See the [detailed 0.1.2 record](community-review-0.1.2.md).
 
-The published [0.1.0 release](https://github.com/t1seo/marginote/releases/tag/0.1.0) retains its original tag and assets. Its additional Reading pop-out failures are preserved in [downloaded-asset QA](downloaded-app-qa.md); they are not overwritten by the corrected candidate's results.
-
-## Automated checks
+## Executed checks
 
 | Check | Observed result |
 | --- | --- |
-| `bun run check:release` | Passed: Biome, 276 tests across 22 files, strict TypeScript 7.0.2, build, official Obsidian lint, and release validation |
-| Official Obsidian ESLint | Zero errors and warnings; the minimum-version settings API exception is explained in [compliance](compliance.md) |
-| Proximity browser regression | 19 Chrome DOM checks passed; the same set against the previous committed UI had seven failures |
-| Reading adoption browser regression | Nine real DOM/MutationObserver checks passed after the failing-first result |
-| Public export regressions | Seven tests passed, including committed content only, private inventory rejection, symlink rejection, and existing destination preservation |
-| Release validation | Version, exact tag format, host-module boundary, complete license notices, and nonempty assets checked; all three published/downloaded assets match the reviewed build |
-| Dependencies | Lockfile unchanged by 0.1.1; no runtime dependency vulnerabilities reported at the compliance checkpoint |
+| `bun run check:release` | Passed: Biome, 308 tests across 25 files, strict TypeScript 7.0.2, build, official Obsidian ESLint, release validation |
+| Official Obsidian ESLint | Zero errors and warnings; the old missing-settings-definitions exception is removed |
+| Production codecs regression | Failed first with three `atob` and one `btoa` calls; passes with zero runtime codec calls |
+| Settings browser regression | 13 real Chrome DOM scenarios passed; narrow host substitute, separate from application QA |
+| Obsidian 1.10.6 candidate | 66 maintained scenarios, fresh defaults, five validation-edge checks, three legacy-settings groups, 13 appearance checks and image fallback passed |
+| Obsidian 1.13.7 settings | Nine actual search, update, failure, teardown and full-process restart scenarios passed |
+| Final CSS in each host | Eight mode/theme/hover geometry groups and four wrapped-selection checks passed |
+| Final proximity in each host | Original 22 assertions passed, including three directions, pointer following and stationary scrolling in both modes |
+| Reading pop-out in each host | Four original ownership, Escape, outside-click and hover assertions passed |
+| Public provenance | Eleven checkpoints passed: exact release identity, three API verifications, three retained-bundle verifications, one-byte tamper rejection, and unchanged older releases |
+| Actual GitHub download on 1.10.6 | Fresh defaults, 66 maintained checks, four Reading pop-out checks, 22 proximity checks, eight CSS groups and four wrapped selections passed across initial/targeted runs |
+| Native-directory installation on 1.10.6 | Normal Install/Enable, verified host-added comment, fresh defaults, 22 proximity and four Reading pop-out smoke checks passed |
 
-The test runner reports 326 Bun `expect()` calls; the seven export tests additionally use Node assertions. Browser checks and application checks are separate from this unit-test count.
+The Bun runner reports 376 `expect()` calls; Node assertions are additional. Application and browser groups overlap in behavior and are not independent feature counts. The legacy maintained suite completed across the initial and targeted remaining runs. Earlier failures, including an undetermined continuous-path sample and native-host failures in the QA harness, are preserved in the [detailed record](community-review-0.1.2.md#application-release-and-service-checkpoints).
 
-## Actual application and media
-
-The isolated application is desktop Obsidian 1.10.6 on macOS, using Electron 37.10.2 and Chromium 138.0.7204.251. It uses a separate profile and vault; personal vaults and the original reference project are excluded.
-
-| Final candidate application group | Result |
-| --- | --- |
-| Maintained suite, Reading pop-out regression, fresh-install defaults, and active-pop-out disable | 72 passed |
-| Proximity, pointer following, stationary-pointer scrolling, selection, and Escape | 14 passed |
-| Three-direction cold activation and continuous paths in both modes | Eight passed |
-| Additional pane/pop-out boundaries | Four passed |
-| Observer and empty-controller cleanup | Three passed |
-
-All 277 pre-existing content files retained their hashes, installed assets matched the candidate, and no runtime errors were collected. The groups overlap in behavioral coverage; their counts are not independent feature counts. The earlier undetermined stationary-hover failure is retained, and the same 31-second assertion passed in the complete final run. See [proximity correction](proximity-qa.md), [application record](app-qa.md), and [independent review](review.md).
-
-The real English demo is a 38.6-second, 960×640 GIF (4,060,784 bytes) and a 38.583333-second, 1200×800 MP4. It includes both view modes, three-direction pointer following, text/image/mixed cards, ordinary-note settings, and varied Lorem ipsum scrolling passages. Temporary cursor/caption aids are disclosed; captions do not overlap the card or anchor. Five clean 1200×800 listing screenshots and the [original icon](../../assets/brand/README.md) are included. See [demo verification](demo-qa.md) for capture, visual review, decoding, and restoration evidence.
-
-Public Markdown is English. Intentional Unicode input regression fixtures remain. The allowlist and link checks exclude private history, reference screenshots, personal paths, authentication data, and private-repository links.
+Both application hosts use an isolated test vault and profile. The newer signed official application runs separately from the installed Obsidian application. No personal vault or original reference project was used or changed.
 
 ## Published asset identity
 
-| Asset | SHA-256 |
-| --- | --- |
-| `main.js` | `6eaf6a2b283f6792029a37386e8d988ab5ab44cbb76c94fbd6b382da66a8193c` |
-| `manifest.json` | `1ff0b8b26214e1ae126e956fad38599e4de65f272fad87ff00770245b7e0b41e` |
-| `styles.css` | `7aaec227bd5a3e1069419300f2e7c1cefdaeaa237e257afd315509a0a432cfd1` |
+Published at **10:30:22 UTC**, with exactly three installation attachments. Tag `0.1.2` resolves to **`339797a578a389f859dde2813c8c5c1d09adccf8`**.
 
-All three actual GitHub downloads match these local candidate hashes, the build from tagged public source, and GitHub’s SHA-256 asset digests. `bun run validate:release --tag 0.1.1 --assets <download-directory>` passed. The stable release was published on September 19, 2026 at 06:21:02 UTC with exactly these three assets. Its tag resolves to `21ed246ae5748d175d3fc662c99b01b646baf5b0`. Actual fresh-install application QA against those downloaded bytes also passed: 72 base checks, 22 integrated proximity checks, four additional window boundaries, and three observer/lifecycle checks. All 313 preceding content files and plugin/settings backups were preserved, with zero runtime errors. See [downloaded application QA](downloaded-app-qa.md#current-release-011).
+| Asset | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `main.js` | 73,647 | `5d301c339199b404c5722821a11ddee302cf9ea6f4bad1072c34c1da6395986c` |
+| `manifest.json` | 268 | `ad2fe8d1d7b256320a033f4888bbf44b783a970eaebe437b034b7b3ec5e0e29c` |
+| `styles.css` | 3,537 | `5aab003a56d510945c252c982dce8c97833548438e64363b5c399617fe477db7` |
 
-## Publication checkpoints
+All three actual GitHub downloads match the reviewed build and GitHub's asset digests. Attestation verification restricts the repository, workflow, tag ref, source commit, signer commit and hosted-runner identity. A one-byte scratch modification failed with the retained legitimate bundle; the unmodified original passed again afterward. The 0.1.0 and 0.1.1 tag objects, commits, asset IDs, digests, sizes and timestamps remain unchanged.
 
-| Stage | Observed state |
-| --- | --- |
-| Final local application QA | Passed as detailed above |
-| Final media review | Passed independent visual inspection, full decode, and representative-frame identity checks |
-| Public 0.1.1 source and CI | `21ed246ae5748d175d3fc662c99b01b646baf5b0`; [Check passed](https://github.com/t1seo/marginote/actions/runs/35426317703); 171-file committed export and independent history audited |
-| GitHub 0.1.1 release and downloaded assets | [Release workflow passed](https://github.com/t1seo/marginote/actions/runs/35426347943); three downloads and GitHub digests match the reviewed build |
-| Community submission and installation | [Public listing](https://community.obsidian.md/plugins/marginote) published; review complete with zero blocking errors and byte-for-byte build reproduction. Native installation remains unverified because in-app search returned no result. See [submission status](submission.md) |
-| Final isolated-process cleanup | Passed: the recorded QA process and all recorded children stopped; its debugging endpoint closed; the excluded personal Obsidian instance remained running; vault and backups preserved |
+The [source check](https://github.com/t1seo/marginote/actions/runs/35437519111) and [release workflow](https://github.com/t1seo/marginote/actions/runs/35437559634) passed. The public repository retains independent history rooted at `4c74448a8a80b00ee2427affaef7c36dcfb578b7`; private history and reference media are excluded.
 
-The public repository has independent history rooted at `4c74448a8a80b00ee2427affaef7c36dcfb578b7`. Its initial [Check](https://github.com/t1seo/marginote/actions/runs/35422279462) and [0.1.0 release workflow](https://github.com/t1seo/marginote/actions/runs/35422326882) passed. Those historical results are not a substitute for verification of 0.1.1.
+## Community and installation
 
-## Limits
+The [public Community page](https://community.obsidian.md/plugins/marginote) responds without authentication and shows 0.1.2. Its completed scorecard has eight passes, no warnings or other findings, and one malware-scan-unavailability disclosure. CSS, settings, base64 and missing-attestation findings are absent; obfuscation and independent byte-for-byte build reproduction passed. Malware scanning is not counted as passed. See [submission status](submission.md) for the actual management-screen and native-installation observations. Automated review does not imply manual staff approval.
 
-Physical mobile devices, physical touch, operating-system IME candidate selection, all community themes, all older Obsidian versions, and comprehensive screen-reader/WCAG certification are not verified. Automated Chromium touch/composition checks are identified as such. GitHub publication, Community scanner results, submission acceptance, and installation availability are separate observations.
+The [downloaded application record](downloaded-app-qa.md) distinguishes a GitHub download installation from native-directory installation. Obsidian adds an exact 18-byte source-map comment to the latter's main.js; the signed original and installed hash are verified separately. The downloaded run preserved 389 preceding content files; the later native run preserved 414 and left 416 including new fixtures. All plugin/data backups remain intact.
 
-The native directory search returned no Marginote result in three attempts, including two normal modal reopenings, through 06:43:19 UTC. Its installed-only filter was off, and a control search worked. The public legacy registry also lacked the entry when checked at 06:42:01 UTC. The reason and availability timing are undetermined; no native directory installation or subsequent installation smoke test is claimed. The actual GitHub download installation passed the 101 checks above. Existing plugin/settings files and all 337 content files remained intact during the directory check.
+Only recorded QA processes and children were stopped. Their debugging endpoint is closed, the temporary disk-image mount is gone, and the excluded personal Obsidian process remained running. The preserved test scene is the English Demo 8 at the top in Reading View with cards / nearby.
+
+## English presentation and limits
+
+The README, sample vault, listing copy and public Markdown are English. The sample uses varied Lorem ipsum passages. The original icon, five clean listing images, 38.6-second GIF and 38.583333-second MP4 remain available. The recording is explicitly a **0.1.1 capture**, not a new 0.1.2 recording. See [demo verification](demo-qa.md).
+
+Physical mobile devices, physical touch, operating-system IME candidate selection, all community themes, all older Obsidian versions and comprehensive screen-reader/WCAG certification are unverified. Automated Chromium touch/composition checks are identified as such. An unavailable malware scan is neither a passing scan nor a malware finding.
+
+One downloaded-run Live Preview pop-out image wait timed out with unchanged source. The same fixture and unchanged assertions subsequently passed, with and without tracing; its initial cause is unknown. This is separate from the earlier altered-alias candidate incident. No product fix or uninterrupted all-green run is claimed for that timeout. The [detailed downloaded record](downloaded-app-qa.md#current-release-012) also preserves the recovered host-target loss and the controlled scroll-position comparison.
+
+The [historical 0.1.1 checkpoint](verification-0.1.1.md) preserves earlier counts, hashes, review findings and the then-unavailable native-directory search. Immutable 0.1.0 failures remain in [downloaded application QA](downloaded-app-qa.md#historical-release-010).

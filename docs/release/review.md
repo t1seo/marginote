@@ -1,6 +1,28 @@
 # Independent release review
 
-## Current correction: 0.1.1
+## Current release: 0.1.2
+
+**PASS for the verified release and installation scope.** Five independent perspectives reviewed the 0.1.2 changes, frozen assets, completed Community scorecard, actual downloaded-application results, native installation and final cleanup. No release-blocking finding remains in that scope. The code-quality review retains medium confidence because the initial intermittent Live Preview failures have no confirmed root cause. Final documentation commits are separate from the immutable release source.
+
+| Perspective | Verdict | Evidence checked |
+| --- | --- | --- |
+| Goal and constraints | PASS / HIGH | English media and samples, both-mode proximity, settings, published source/tag/assets, native Install/Enable, data and process preservation |
+| Code quality | PASS / MEDIUM | Validation contracts, document ownership, asynchronous cancellation, unchanged application assertions, controlled CSS geometry and scroll comparison |
+| Security and privacy | PASS | Three original asset attestations, tamper rejection, independent public history and allowlist, exact native host transformation, backup and content preservation |
+| Hands-on application QA | PASS / HIGH for the recorded evidence | Actual downloads, native 22 proximity plus four Reading pop-out checks, installed-file identity, English screenshots, preserved failures and cleanup |
+| Repository context | PASS / HIGH | Source/release CI, immutable earlier releases, 181-file English public inventory, local links and separation of current and historical records |
+
+The final source gate passed 308 tests / 376 Bun assertions, strict TypeScript, Biome, official Obsidian ESLint, production build and release validation. Public release source remains `339797a578a389f859dde2813c8c5c1d09adccf8`; original main.js SHA-256 is `5d301c339199b404c5722821a11ddee302cf9ea6f4bad1072c34c1da6395986c`. Original release files, GitHub digests, API attestations and retained bundles agree. A modified scratch file was rejected, and the original passed again.
+
+The native installer appends exactly `\n/* nosourcemap */` to main.js. Independent reviewers compared the full installed file with the signed original plus those 18 bytes; manifest and CSS are unchanged. The post-smoke check uses the separately verified installed hashes. Existing content files, previous installation backups and the enabled-plugin list remained intact. All recorded QA processes stopped, the endpoint closed, and the personal application was preserved.
+
+The Community review completed with eight passes, zero warnings, zero other findings and one unavailable-malware-scan disclosure. The management screen, public scorecard and native installation support that result; one reviewer's separate anonymous request returned HTTP 403 and is not reported as another successful fetch. Automated review is not manual staff approval or a comprehensive security certification.
+
+The initial downloaded-run Live Preview image timeout occurred with unchanged fixture bytes. Its original window assertions passed in a same-fixture rerun, both with and without tracing. The cause remains unknown; this review does not claim that a product defect was diagnosed or repaired, or that every suite passed uninterrupted. The earlier continuous-path failure and distinct altered-alias candidate incident are also retained. See [downloaded application QA](downloaded-app-qa.md#current-release-012), [the 0.1.2 record](community-review-0.1.2.md) and [release verification](verification.md) for exact coverage and limits.
+
+Two final documentation findings were corrected: the 0.1.0 candidate banner now describes its later correction in the past tense, and the historical 0.1.1 installation link points to its archived checkpoint. The existing English icon, sample, listing images and demo passed prior visual review and remain unchanged; the demo still identifies its 0.1.1 capture version.
+
+## Historical correction: 0.1.1
 
 **Preparation verdict: PASS / HIGH.** Five independent perspectives reviewed the frozen 0.1.1 candidate, including the [proximity correction](proximity-qa.md), complete application QA, and the corrected English recording. This approves release preparation; publication, downloaded-byte QA, and Community submission are recorded separately as they occur.
 
@@ -20,11 +42,11 @@ Independent media review opened 13 MP4 frames, eight GIF frames, the poster, and
 
 **PASS / HIGH for the completed delivery stages.** An independent reviewer verified the public 0.1.1 tag, successful source/release workflows, all three asset digests, the actual downloaded application's 101-check evidence, and preservation of its 313 preceding content files. The reviewer also fetched the public Community listing without authentication and visually inspected all five delivered gallery images. The original GIF remained animated in the README-derived Overview.
 
-The Community scan has zero blocking errors, two warnings, and one recommendation, described in [submission status](submission.md). A separate hands-on reviewer could not find Marginote in the native Obsidian 1.10.6 directory after three normal searches; that installation path remains unverified. The successful GitHub download installation is not counted as a native-directory install. Final teardown stopped only recorded QA processes and retained the vault, backups, and personal Obsidian instance. This limitation does not invalidate the completed release checks, and it is not reported as a passing installation check.
+The Community scan had zero blocking errors, two warnings, and one recommendation, described in the [historical submission status](submission-0.1.1.md). A separate hands-on reviewer could not find Marginote in the native Obsidian 1.10.6 directory after three normal searches; that installation path remained unverified at this checkpoint. The successful GitHub download installation was not counted as a native-directory install. Final teardown stopped only recorded QA processes and retained the vault, backups, and personal Obsidian instance. This limitation did not invalidate the completed release checks, and was not reported as a passing installation check.
 
 ### Reading adoption checkpoint before proximity changes
 
-The later [downloaded 0.1.0 application review](downloaded-app-qa.md) reproduced four Reading view pop-out failures and superseded the earlier passing gate below. At that checkpoint, Community submission was held until the correction and its published assets passed verification.
+The later [downloaded 0.1.0 application review](downloaded-app-qa.md#historical-release-010) reproduced four Reading view pop-out failures and superseded the earlier passing gate below. At that checkpoint, Community submission was held until the correction and its published assets passed verification.
 
 That 0.1.1 candidate rebinds Reading view sections when their owner document changes, with one observer per document and cleanup on window closure or plugin unload. Independent code-quality and security reviews passed at that checkpoint. The 275-test release gate and nine browser DOM/lifecycle checks passed, and all four previously failing behaviors passed in real Obsidian with that candidate. The wider run stopped with one undetermined hover-persistence failure; [the partial record](patch-qa.md) preserves its exact result. At that checkpoint, complete candidate and downloaded-asset verification remained outstanding.
 

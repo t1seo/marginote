@@ -99,6 +99,14 @@ Unlinking or undoing an insertion does not delete the card note or its images. E
 
 Marginote requires **Obsidian 1.10.6 or later on desktop**. The plugin ID is `marginote`.
 
+### Community directory
+
+1. Open **Settings → Community plugins → Browse**.
+2. Search for **Marginote** by **t1seo**.
+3. Select **Install**, then **Enable**.
+
+See the [Community page](https://community.obsidian.md/plugins/marginote) and [verified release status](docs/release/verification.md).
+
 ### GitHub release
 
 1. Download `main.js`, `manifest.json`, and `styles.css` from the [latest release](https://github.com/t1seo/marginote/releases/latest).
@@ -108,10 +116,6 @@ Marginote requires **Obsidian 1.10.6 or later on desktop**. The plugin ID is `ma
 ### BRAT
 
 If you already use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `https://github.com/t1seo/marginote` as a beta plugin, then enable Marginote.
-
-### Community directory
-
-The [Marginote Community page](https://community.obsidian.md/plugins/marginote) is public. On September 19, 2026, Marginote was still absent from the in-app directory search tested in Obsidian 1.10.6. Until it appears there, use the GitHub release instructions above. See the [submission status](docs/release/submission.md) for the review and installation observations.
 
 ## Sample vault
 

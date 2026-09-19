@@ -1,30 +1,33 @@
 # Community submission status
 
-**Published:** [Marginote in the Obsidian Community directory](https://community.obsidian.md/plugins/marginote), version **0.1.1**. Observed September 19, 2026. The public page responds successfully without authentication and shows the saved English description, five screenshots, the current version, and **Add to Obsidian**. Native-directory installation remains unverified because the entry was absent from the tested in-app search.
+**Published: [Marginote 0.1.2](https://community.obsidian.md/plugins/marginote).** Observed September 19, 2026. The public page responds without authentication and shows the saved English presentation, five screenshots, current version, and Add to Obsidian. Its scorecard now displays **Health: Excellent** and **Review: Passed**.
 
-The maintained public source is [t1seo/marginote](https://github.com/t1seo/marginote), with [release 0.1.1](https://github.com/t1seo/marginote/releases/tag/0.1.1). Before submission, the actual GitHub downloads passed a fresh installation and 101 application checks in an isolated vault. The Community form was submitted once using the connected account, created the Marginote entry, completed its automated review, and was published after listing verification. The original 0.1.0 tag and assets remain unchanged.
+The existing entry was updated through the portal's new-release check; no duplicate submission was created. The maintained source is [t1seo/marginote](https://github.com/t1seo/marginote), and the immutable [0.1.2 release](https://github.com/t1seo/marginote/releases/tag/0.1.2) contains three verified assets. See [release verification](verification.md) for hashes, provenance and actual application coverage.
 
-## Observed review
+## Observed 0.1.2 review
 
-The completed review identifies version 0.1.1 and source commit `21ed246`. **No blocking errors were reported.** Two warnings and one recommendation remain; this is not an all-green scanner claim.
+The anonymous public scorecard at 10:36:43 UTC, followed by the authenticated management screen and rendered scorecard, shows **eight passes, zero warnings, zero other findings, and one disclosure**. The management review is **Completed** for 0.1.2 / `339797a`. The remaining disclosure is malware-scan unavailability. The previous runtime base64 disclosure, CSS and settings warnings, and missing-attestation findings are absent.
 
 | Scanner section | Observed result |
 | --- | --- |
-| Releases | Recommendation: GitHub artifact attestations are absent for main.js and styles.css |
+| Releases | Pass: verified GitHub attestations for main.js and styles.css; independent release verification also covers manifest.json |
 | Network requests | Pass: no suspicious network patterns found |
 | Behavior | Pass: vault reads and writes use Obsidian APIs |
-| Source code | Warning: settings do not implement getSettingDefinitions() for settings search in Obsidian 1.13+ |
-| CSS lint | Warning: generic partial-support notice for text-decoration against Obsidian 1.9.12 |
+| Source code and CSS | No settings, runtime-codec or CSS compatibility findings |
 | Dependencies | Pass: no vulnerable dependencies found |
-| Build verification | Pass: the release main.js was reproduced byte-for-byte |
+| Code obfuscation | Pass: no obfuscation detected |
+| Build verification | Pass: independently reproduced main.js byte-for-byte |
+| Malware | Unavailable; not counted as a passing scan |
 
-The public scorecard shows **Health: Excellent** and **Review: Satisfactory**. These are the directory's displayed labels, not certification of every host version, theme, or device.
+These are the service's observed results, not a certification of all security properties, host versions, themes or devices. The [0.1.2 implementation record](community-review-0.1.2.md) explains the code changes and preserves the failed first CSS preview. No scanner rule, detection spelling or dependency internal was altered to suppress a result.
 
-### Remaining warnings and recommendation
+## Native installation checkpoint
 
-- **Settings search:** Marginote's settings panel works through the legacy display API used for its tested Obsidian 1.10.6 baseline. Its choices are not integrated into the new global settings search on 1.13+. Obsidian continues to support the legacy display approach; adopting both APIs requires additional newer-host validation. [Official settings documentation](https://github.com/obsidianmd/obsidian-developer-docs/blob/main/en/Plugins/User%20interface/Settings.md#legacy-imperative-display-approach).
-- **Text decoration:** the reported declarations use a dotted underline and theme color. The scanner's 1.9.12 comparison is below this release's minimum 1.10.6; the declarations passed the real Chromium 138 light/dark and zoom checks. No supported-host rendering failure was observed. [Compatibility data](https://github.com/mdn/browser-compat-data/blob/main/css/properties/text-decoration.json).
-- **Artifact attestations:** no cryptographic GitHub build attestation has been issued for this release. The independent Community build and downloaded-asset hashes do match the reviewed source. A later attestation must describe the build that actually generated it; it must not be presented as an attestation from the original release workflow. [GitHub provenance documentation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds).
+**PASS — normal native-directory installation and post-install smoke checks completed in Obsidian 1.10.6.** The official legacy registry included Marginote at 10:19:05 UTC; the actual Browse search subsequently returned the exact Marginote / t1seo entry. After preserving the existing plugin/data folder, the normal Uninstall, Install and Enable controls produced a fresh 0.1.2 installation with cards / nearby defaults.
+
+The host appends its source-map marker to main.js. The original signed bytes plus that exact comment were verified before enable; manifest and CSS are byte-identical to the release. All 22 proximity and four Reading pop-out smoke assertions passed, with unchanged installed hashes, 414 preceding content files, enabled-plugin list and backup. The final 416-file vault and all backups were retained, and only the recorded QA process and children were stopped. See [native installation evidence](downloaded-app-qa.md#native-directory-installation-012) for the exact byte distinction and retained helper failures.
+
+The native listing states that Obsidian staff have not manually reviewed the plugin. Its completed automated review and successful installation are the verified results; no manual staff approval is claimed. The earlier unsuccessful 0.1.1 searches remain in the [historical record](submission-0.1.1.md#installation-checkpoint).
 
 ## Published listing
 
@@ -49,14 +52,4 @@ Move left, below, or right of a link to see its card follow the pointer in Readi
 
 Cards remain ordinary Markdown files in your vault. Unlinking restores the phrase without deleting the card or its images. Marginote works locally with no account, telemetry, or network service. Free; desktop Obsidian 1.10.6 or later. The repository includes an English sample vault and a real interaction GIF. Mobile is not supported in this release.
 
-## Installation checkpoint
-
-The public listing and **Add to Obsidian** link are present. Native-directory installation is **blocked by the entry not appearing in the tested app's search**. In Obsidian 1.10.6, three searches including two normal Browse reopenings returned “Showing 0 plugins / No results found” through September 19, 2026 at 06:43:19 UTC. The installed-only filter was unchecked; searching the lowercase ID also returned no result, while an Excalidraw control search returned 22 results. The app reported 7,808 directory entries.
-
-A separate anonymous request to the [official legacy registry](https://raw.githubusercontent.com/obsidianmd/obsidian-releases/master/community-plugins.json) at 06:42:01 UTC returned 7,806 entries without Marginote. These are separate observations, not evidence of a confirmed cache or propagation cause. No availability date is known.
-
-No native uninstall/install was attempted and no post-directory-install smoke test ran. The preceding verified GitHub installation, plugin preferences, enabled-plugin list, and all 337 content files were preserved. The isolated QA process and its children were subsequently stopped; personal Obsidian remained untouched. The successful GitHub installation and 101 downloaded-release application checks are recorded in [downloaded application QA](downloaded-app-qa.md#current-release-011).
-
-The remaining check is to search the native directory again once its entry becomes available, install from that UI in an isolated vault, verify the three release hashes and version, then rerun the two-mode proximity and Reading pop-out smoke checks. Until then, use the README's GitHub installation instructions.
-
-The submission followed the official [submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin) and [entry-management guide](https://docs.obsidian.md/community-directory/manage-entry).
+The submission and release update follow the official [submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin) and [entry-management guide](https://docs.obsidian.md/community-directory/manage-entry).
