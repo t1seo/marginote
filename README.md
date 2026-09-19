@@ -152,6 +152,8 @@ See [Contributing](CONTRIBUTING.md), the [release verification record](docs/rele
 
 Please [open an issue](https://github.com/t1seo/marginote/issues) with your Obsidian version, operating system, view mode, and a small example note. Avoid attaching personal vault contents.
 
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=&slug=taewonseo&button_colour=e3e7ef&font_colour=262626&font_family=Inter&outline_colour=262626&coffee_colour=a0522d)](https://www.buymeacoffee.com/taewonseo)
+
 ## Credits and license
 
 Created by [t1seo](https://github.com/t1seo). The card geometry was adapted from the maintainer's Library of Alexandria project for Obsidian's editor and window lifecycle. The sample writing, illustration, and Marginote icon were created for this plugin.
