@@ -1,6 +1,6 @@
 # Releasing Marginote
 
-The public source repository is `t1seo/marginote`. Release tags must match the manifest version exactly, for example `0.1.1`, without a `v` prefix.
+The public source repository is `t1seo/marginote`. Release tags must match the manifest version exactly, for example `0.1.2`, without a `v` prefix.
 
 ## Prepare and verify
 
@@ -14,6 +14,8 @@ For Reading view document ownership, run `node tests/reading/adoption.browser.mj
 
 For proximity behavior, run `node tests/ui/nearby.browser.mjs` with Google Chrome installed, then `node scripts/qa/nearby.mjs` in the owned isolated Obsidian instance. Check distant activation, measurable card movement, scrolling with no new pointer input, selection and Escape suppression in both Reading View and Live Preview. Fresh settings must select **Near text · follows pointer**; saved stationary-hover and explicit-only choices must survive an upgrade.
 
+For settings, run `node tests/settings/definitions.browser.mjs`, then verify the legacy panel in Obsidian 1.10.6 and real settings search in 1.13 or later. Search before first opening the plugin tab, change both controls, and check immediate behavior, persistence, save failure, and cleanup after settings or a window closes. The browser substitute does not establish host integration.
+
 ## Publish installation assets
 
 Push the matching version tag to the public repository. The release workflow builds the tagged source with the frozen lockfile and attaches:
@@ -23,6 +25,8 @@ Push the matching version tag to the public repository. The release workflow bui
 - `styles.css`
 
 Keep the release description in English. State new behavior, compatibility, installation instructions, and material limitations. Source archives alone are not sufficient for Obsidian installation.
+
+Starting with 0.1.2, the tag workflow also creates GitHub build attestations for all three assets. It verifies the emitted bundle before publishing, then checks the downloaded bytes and public attestations against the repository, workflow, tag and source commit. Attestations use GitHub's API and are not extra installation attachments. If the workflow fails after creating the release, inspect the existing release before retrying; never replace its assets blindly.
 
 Download all three published assets again. Compare their SHA-256 hashes with the verified tagged build, then install those downloaded files into a separate test vault. Do not replace them with a later local build while testing. Confirm fresh enable, both supported views, all card kinds, ordinary-note previews, settings persistence, editing preservation, and window cleanup.
 

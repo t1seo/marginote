@@ -39,7 +39,7 @@ Cards follow Obsidian's light and dark appearance. Each window shows one card at
 
 ## Choose what appears
 
-Open **Settings → Marginote**. Two settings control the experience:
+Open **Settings → Marginote**. In Obsidian 1.13 or later, you can also find these controls through settings search using terms such as **annotation**, **note**, **hover**, or **nearby**. Two settings control the experience:
 
 | Setting | Options | Default |
 | --- | --- | --- |
@@ -127,7 +127,7 @@ Only local wiki image embeds are loaded automatically inside previews. Markdown 
 - **Live Preview:** whole-note `[[wikilinks]]`, including aliases. Markdown-style `[links](Note.md)` are not decorated in Live Preview.
 - **Source mode:** normal source editing remains available.
 - **Heading links, block links, and note embeds:** retain Obsidian's behavior.
-- **Desktop:** tested in Obsidian 1.10.6, including split panes, pop-out windows, light/dark appearance, and zoom.
+- **Desktop:** tested in Obsidian 1.10.6 and 1.13.7. Checks include both preview modes, split panes, pop-out windows, light/dark appearance, and modern settings search. Zoom checks used 1.10.6.
 - **Mobile:** not supported in this release. Touch and composition checks used Chromium input automation; physical mobile devices and operating-system IMEs were not certified.
 
 Complex nested Markdown may render differently from the full note. Passive proximity previews have a different accessibility contract from stationary hover and explicit cards; this release does not claim comprehensive screen-reader or WCAG certification.

@@ -14,6 +14,8 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     steps:
       - name: Checkout (v4)
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -29,6 +31,30 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.ref_name }}
         run: bun run validate:release --tag "$RELEASE_TAG"
+      - name: Attest exact release assets (v4.2.2)
+        id: attest
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
+        with:
+          subject-path: |
+            ${{ github.workspace }}/main.js
+            ${{ github.workspace }}/manifest.json
+            ${{ github.workspace }}/styles.css
+      - name: Verify release asset provenance
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ATTESTATION_BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+        run: |
+          for asset in main.js manifest.json styles.css; do
+            gh attestation verify "$asset" \
+              --bundle "$ATTESTATION_BUNDLE" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/release.yml" \
+              --source-ref "$GITHUB_REF" \
+              --source-digest "$GITHUB_SHA" \
+              --signer-digest "$GITHUB_SHA" \
+              --deny-self-hosted-runners
+          done
       - name: Publish plugin assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -37,3 +63,36 @@ jobs:
         run: >-
           gh release create "$RELEASE_TAG" main.js manifest.json styles.css
           --verify-tag --title "Marginote $RELEASE_TAG" --notes-file CHANGELOG.md --latest
+      - name: Verify published assets and attestations
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          marginote_assets_dir="$(mktemp -d "$RUNNER_TEMP/marginote-release.XXXXXX")"
+          cleanup_assets() {
+            for marginote_asset in main.js manifest.json styles.css; do
+              if [[ -f "$marginote_assets_dir/$marginote_asset" ]]; then
+                rm -- "$marginote_assets_dir/$marginote_asset"
+              fi
+            done
+            rmdir -- "$marginote_assets_dir"
+          }
+          trap cleanup_assets EXIT
+          gh release download "$RELEASE_TAG" \
+            --dir "$marginote_assets_dir" \
+            --pattern main.js \
+            --pattern manifest.json \
+            --pattern styles.css
+          bun run validate:release --tag "$RELEASE_TAG" --assets "$marginote_assets_dir"
+          for asset in main.js manifest.json styles.css; do
+            gh attestation verify "$marginote_assets_dir/$asset" \
+              --repo "$GITHUB_REPOSITORY" \
+              --signer-workflow "$GITHUB_REPOSITORY/.github/workflows/release.yml" \
+              --source-ref "$GITHUB_REF" \
+              --source-digest "$GITHUB_SHA" \
+              --signer-digest "$GITHUB_SHA" \
+              --deny-self-hosted-runners \
+              --format json
+          done

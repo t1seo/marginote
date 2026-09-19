@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { parseSettings } from "../../src/preview/preferences";
+import { parseSettings, SettingsSchema } from "../../src/preview/preferences";
 
 describe("preview preferences", () => {
   test.each([undefined, null, {}, [], "invalid", 2].map((input) => ({ input })))(
@@ -91,5 +91,50 @@ describe("preview preferences", () => {
 
     // Then only the current preferences control behavior.
     expect(settings).toEqual({ previewSource: "both", previewTrigger: "nearby" });
+  });
+
+  test.each([
+    { previewTrigger: undefined, expected: "click" },
+    { previewTrigger: null, expected: "nearby" },
+    { previewTrigger: "invalid", expected: "nearby" },
+    { previewTrigger: "", expected: "nearby" },
+  ])(
+    "given legacy disabled state, parsing only migrates an absent trigger: $previewTrigger",
+    ({ previewTrigger, expected }) => {
+      const settings = parseSettings({
+        previewSource: "notes",
+        autoPreview: false,
+        previewTrigger,
+      });
+
+      expect(settings).toEqual({ previewSource: "notes", previewTrigger: expected });
+    },
+  );
+
+  test.each(
+    [undefined, null, [], 42, { previewSource: false }, { autoPreview: false }].map((input) => ({
+      input,
+    })),
+  )(
+    "given malformed saved input, the exported schema still returns defaults: $input",
+    ({ input }) => {
+      const parsed = SettingsSchema.safeParse(input);
+
+      expect(parsed).toEqual({
+        success: true,
+        data: { previewSource: "cards", previewTrigger: "nearby" },
+      });
+    },
+  );
+
+  test("given unrelated saved data, the exported schema strips it from its mutable result", () => {
+    const parsed = SettingsSchema.parse({
+      previewSource: "both",
+      previewTrigger: "click",
+      unrelated: true,
+    });
+
+    expect(parsed).toEqual({ previewSource: "both", previewTrigger: "click" });
+    expect(Object.isFrozen(parsed)).toBe(false);
   });
 });

@@ -1,28 +1,27 @@
-import { z } from "zod";
+import * as z from "zod/mini";
+import "../validation-locale";
 import { wholeNoteLink } from "./links";
 import type { CardId } from "./model";
 
 const title = z
   .string()
-  .trim()
-  .max(200)
-  .regex(/^[^\r\n]*$/u, "Use a single-line title.");
-const body = z.string().trim().min(1, "Enter the card's text.");
-const imagePath = z
-  .string()
-  .trim()
-  .min(1, "Enter a local image path.")
-  .refine(
+  .check(z.trim(), z.maxLength(200), z.regex(/^[^\r\n]*$/u, "Use a single-line title."));
+const body = z.string().check(z.trim(), z.minLength(1, "Enter the card's text."));
+const imagePath = z.string().check(
+  z.trim(),
+  z.minLength(1, "Enter a local image path."),
+  z.refine(
     (path) => wholeNoteLink(path) !== null,
     "Use a vault image path without a fragment or embed syntax.",
-  );
-const DraftSchema = z
-  .discriminatedUnion("kind", [
+  ),
+);
+const DraftSchema = z.readonly(
+  z.discriminatedUnion("kind", [
     z.object({ kind: z.literal("text"), title, body, imagePath: z.literal("") }),
     z.object({ kind: z.literal("image"), title, body: z.literal(""), imagePath }),
     z.object({ kind: z.literal("mixed"), title, body, imagePath }),
-  ])
-  .readonly();
+  ]),
+);
 
 export type CardDraft = z.infer<typeof DraftSchema>;
 

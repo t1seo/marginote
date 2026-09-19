@@ -1,7 +1,7 @@
 {
   "id": "marginote",
   "name": "Marginote",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minAppVersion": "1.10.6",
   "description": "Connected text and image cards in the margins of your notes.",
   "author": "t1seo",

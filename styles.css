@@ -2,11 +2,15 @@
 .markdown-source-view .marginote-anchor,
 .markdown-source-view .marginote-anchor .cm-underline {
   color: var(--text-normal);
-  text-decoration: underline dotted var(--text-muted);
-  text-underline-offset: 4px;
+  text-decoration: none;
   cursor: pointer;
   -webkit-user-select: text;
   user-select: text;
+}
+
+.markdown-rendered .marginote-anchor,
+.markdown-source-view .marginote-anchor {
+  border-bottom: 1px dotted var(--text-muted);
 }
 
 .marginote-anchor:focus-visible {
@@ -135,9 +139,10 @@
   color: var(--text-error);
 }
 
-.markdown-rendered a.marginote-anchor:hover {
+.markdown-rendered a.marginote-anchor:hover,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link .marginote-anchor .cm-underline:hover {
   color: var(--text-normal);
-  text-decoration: underline dotted var(--text-muted);
+  text-decoration: none;
 }
 .marginote-note-meta {
   padding: 16px 24px 0;
