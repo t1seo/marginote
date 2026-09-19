@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2
+
+- Make both preview settings searchable in Obsidian 1.13 and later while preserving the settings panel on 1.10.6.
+- Keep settings changes, saved preferences, and view refreshes consistent across the legacy panel and modern search results.
+- Remove unused validation-library codecs from the plugin bundle while preserving card validation and settings recovery.
+- Use explicit text-decoration properties for the same dotted underline across supported host versions.
+- Generate signed GitHub build provenance for all three release assets and verify the published downloads against the release source.
+
 ## 0.1.1
 
 - Restore proximity previews as the default: move beside or below a link to see a card follow the pointer in Reading view and Live Preview. Existing saved choices are preserved.
@@ -23,4 +31,4 @@ Initial release.
 
 Requires desktop Obsidian 1.10.6 or later. Mobile and physical-device IME/touch validation are outside this release's tested scope. See the release and Community records for publication status.
 
-To install manually, download `main.js`, `manifest.json`, and `styles.css` from the latest release into `<vault>/.obsidian/plugins/marginote/`, reload Obsidian, and enable Marginote under Community plugins. Fresh installations of 0.1.1 default to **Annotation cards only** and **Near text · follows pointer**; 0.1.0 used stationary hover.
+To install manually, download `main.js`, `manifest.json`, and `styles.css` from the latest release into `<vault>/.obsidian/plugins/marginote/`, reload Obsidian, and enable Marginote under Community plugins. Fresh installations since 0.1.1 default to **Annotation cards only** and **Near text · follows pointer**; 0.1.0 used stationary hover.

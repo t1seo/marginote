@@ -1,4 +1,5 @@
-import { z } from "zod";
+import * as z from "zod/mini";
+import "../validation-locale";
 
 export const PreviewSourceSchema = z.enum(["cards", "notes", "both"]);
 export const PreviewTriggerSchema = z.enum(["hover", "click", "nearby"]);
@@ -6,18 +7,30 @@ export type PreviewSource = z.infer<typeof PreviewSourceSchema>;
 export type PreviewTrigger = z.infer<typeof PreviewTriggerSchema>;
 export const HOVER_PREVIEW_DELAY_MS = 250;
 
-export const SettingsSchema = z
-  .object({
-    previewSource: PreviewSourceSchema.catch("cards"),
-    previewTrigger: PreviewTriggerSchema.catch("nearby"),
-  })
-  .catch(() => ({ previewSource: "cards", previewTrigger: "nearby" }) as const);
+const StoredSettingsSchema = z.object({
+  previewSource: z.optional(z.unknown()),
+  previewTrigger: z.optional(z.unknown()),
+});
+
+export const SettingsSchema = z.transform((input) => {
+  const stored = StoredSettingsSchema.safeParse(input);
+  const source = PreviewSourceSchema.safeParse(
+    stored.success ? stored.data.previewSource : undefined,
+  );
+  const trigger = PreviewTriggerSchema.safeParse(
+    stored.success ? stored.data.previewTrigger : undefined,
+  );
+  return {
+    previewSource: source.success ? source.data : "cards",
+    previewTrigger: trigger.success ? trigger.data : "nearby",
+  };
+});
 
 export type MarginoteSettings = z.infer<typeof SettingsSchema>;
 
 const DisabledLegacyPreviewSchema = z.object({
   autoPreview: z.literal(false),
-  previewTrigger: z.undefined().optional(),
+  previewTrigger: z.optional(z.undefined()),
 });
 
 export function parseSettings(input: unknown): MarginoteSettings {

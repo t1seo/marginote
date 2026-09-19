@@ -22,11 +22,4 @@ export default defineConfig([
       ],
     },
   },
-  {
-    files: ["src/settings.ts"],
-    rules: {
-      // Keep the tested 1.10.6 settings API until the 1.13 search UI has real-app coverage.
-      "obsidianmd/settings-tab/prefer-setting-definitions": "off",
-    },
-  },
 ]);

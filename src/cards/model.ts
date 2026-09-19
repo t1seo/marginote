@@ -1,5 +1,6 @@
 import type { TFile } from "obsidian";
-import { z } from "zod";
+import * as z from "zod/mini";
+import "../validation-locale";
 
 export const CARD_KINDS = ["text", "image", "mixed"] as const;
 export type CardKind = (typeof CARD_KINDS)[number];

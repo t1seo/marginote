@@ -39,7 +39,7 @@ Cards follow Obsidian's light and dark appearance. Each window shows one card at
 
 ## Choose what appears
 
-Open **Settings → Marginote**. Two settings control the experience:
+Open **Settings → Marginote**. In Obsidian 1.13 or later, you can also find these controls through settings search using terms such as **annotation**, **note**, **hover**, or **nearby**. Two settings control the experience:
 
 | Setting | Options | Default |
 | --- | --- | --- |

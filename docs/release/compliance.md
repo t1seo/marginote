@@ -1,5 +1,7 @@
 # Release compliance
 
+The checkpoint below is historical. The [0.1.2 review improvements](community-review-0.1.2.md) track the new settings-search support, removal of the legacy lint exception, smaller bundle, and signed build provenance separately.
+
 This is the local release-preparation checkpoint for Marginote 0.1.0, verified
 on September 19, 2026. Publishing, downloaded-release testing, and Community
 directory review are separate steps recorded in the release verification and

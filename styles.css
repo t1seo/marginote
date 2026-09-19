@@ -2,7 +2,10 @@
 .markdown-source-view .marginote-anchor,
 .markdown-source-view .marginote-anchor .cm-underline {
   color: var(--text-normal);
-  text-decoration: underline dotted var(--text-muted);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--text-muted);
+  text-decoration-thickness: auto;
   text-underline-offset: 4px;
   cursor: pointer;
   -webkit-user-select: text;
@@ -137,7 +140,10 @@
 
 .markdown-rendered a.marginote-anchor:hover {
   color: var(--text-normal);
-  text-decoration: underline dotted var(--text-muted);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--text-muted);
+  text-decoration-thickness: auto;
 }
 .marginote-note-meta {
   padding: 16px 24px 0;
