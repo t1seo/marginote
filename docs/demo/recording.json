@@ -1,67 +1,169 @@
 {
   "capture": {
-    "elapsed": 24.454100292000003,
-    "frameCount": 280,
-    "firstTimestamp": 1789792056.93663,
-    "lastTimestamp": 1789792079.573036,
-    "averageCaptureFps": 11.45002255885898,
-    "maximumFrameGap": 1.8176943471757845
+    "elapsed": 38.5795775,
+    "frameCount": 469,
+    "firstTimestamp": 1789798217.538234,
+    "lastTimestamp": 1789798254.805058,
+    "averageCaptureFps": 12.15669093317572,
+    "maximumFrameGap": 1.6376149654388428
   },
   "markers": [
     {
       "name": "nearby-text",
-      "seconds": 2.2507399169999998
+      "seconds": 1.718818208,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
     },
     {
       "name": "nearby-image",
-      "seconds": 6.151139875
+      "seconds": 3.5177495420000002,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "reading-nearby-left",
+      "seconds": 5.8840882500000005,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "reading-nearby-below",
+      "seconds": 7.950914957999999,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "reading-nearby-right",
+      "seconds": 10.0001585,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "live-preview-nearby-left",
+      "seconds": 12.433992708,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "live-preview-nearby-below",
+      "seconds": 14.484819167,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "live-preview-nearby-right",
+      "seconds": 16.536944416999997,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
     },
     {
       "name": "hover-settings",
-      "seconds": 9.375689083
+      "seconds": 18.632974333,
+      "caption": {
+        "top": 742.5,
+        "bottom": 782,
+        "intersections": 0
+      }
     },
     {
       "name": "hover-pinned",
-      "seconds": 13.558948625
+      "seconds": 22.324038417,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "scrolling-passages",
+      "seconds": 25.503848833,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
+    },
+    {
+      "name": "scrolled-card",
+      "seconds": 27.667736582999996,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
     },
     {
       "name": "note-settings",
-      "seconds": 17.081694333
+      "seconds": 32.052170958,
+      "caption": {
+        "top": 742.5,
+        "bottom": 782,
+        "intersections": 0
+      }
     },
     {
       "name": "ordinary-note",
-      "seconds": 19.426626417
+      "seconds": 34.317806958,
+      "caption": {
+        "top": 70,
+        "bottom": 109.5,
+        "intersections": 0
+      }
     }
   ],
   "gifOptions": {
-    "width": 1080,
-    "fps": 12,
+    "width": 960,
+    "fps": 10,
     "colors": 128
   },
-  "gifBytes": 2268748,
+  "gifBytes": 4060784,
   "mp4": {
-    "bytes": 548444,
-    "duration": "24.416667",
+    "bytes": 2030115,
+    "duration": "38.583333",
     "streams": [
       {
         "width": 1200,
         "height": 800,
         "avg_frame_rate": "12/1",
-        "nb_frames": "293"
+        "nb_frames": "463"
       }
     ]
   },
   "gif": {
-    "duration": "24.410000",
-    "frameCount": 293,
-    "frameDelays": [0.08, 0.09],
-    "effectiveFps": 12.003277,
+    "duration": "38.600000",
+    "frameCount": 386,
+    "frameDelays": [0.1],
+    "effectiveFps": 10,
     "streams": [
       {
-        "width": 1080,
-        "height": 720,
-        "avg_frame_rate": "25/2",
-        "nb_frames": "293"
+        "width": 960,
+        "height": 640,
+        "avg_frame_rate": "10/1",
+        "nb_frames": "386"
       }
     ]
   },
@@ -69,13 +171,14 @@
     "mp4": "passed",
     "gif": "passed"
   },
-  "verification": ".qa/demo-1789792056589/verification",
+  "verification": ".qa/demo-1789798217218/verification",
   "language": {
     "selectedHostLanguage": "English",
     "verifiedHostLabels": ["General", "Core plugins", "Community plugins"],
+    "automaticPreviewOptions": ["Near text · follows pointer", "Over link · stays in place", "Off"],
     "versions": {
       "obsidian": "1.10.6",
-      "plugin": "0.1.0",
+      "plugin": "0.1.1",
       "electron": "37.10.2",
       "chromium": "138.0.7204.251",
       "node": "22.21.1"
@@ -86,31 +189,31 @@
       "filename": "text-card.png",
       "width": 1200,
       "height": 800,
-      "bytes": 76691
+      "bytes": 152252
     },
     {
       "filename": "image-card.png",
       "width": 1200,
       "height": 800,
-      "bytes": 55502
+      "bytes": 125299
     },
     {
       "filename": "mixed-card.png",
       "width": 1200,
       "height": 800,
-      "bytes": 73209
+      "bytes": 115534
     },
     {
       "filename": "ordinary-note.png",
       "width": 1200,
       "height": 800,
-      "bytes": 95765
+      "bytes": 145085
     },
     {
       "filename": "settings.png",
       "width": 1200,
       "height": 800,
-      "bytes": 71669
+      "bytes": 95928
     }
   ],
   "session": {
@@ -118,23 +221,325 @@
     "restored": true,
     "overlaysRemoved": true,
     "cdpDisconnected": true,
-    "fixture": "Marginote Demo 5",
+    "recordingSpellcheck": false,
+    "originalSpellcheck": {
+      "effective": true,
+      "hasOverride": false,
+      "override": null
+    },
+    "fixture": "Marginote Demo 8",
+    "captionLayout": {
+      "checks": 2315,
+      "top": 1981,
+      "bottom": 334,
+      "overlapFrames": 0
+    },
+    "spellcheckRestored": true,
     "originalNotes": {
-      "originalFiles": 188,
+      "originalFiles": 307,
       "unchanged": true,
       "newFiles": 6
     },
     "preparedNotes": {
-      "originalFiles": 194,
+      "originalFiles": 313,
       "unchanged": true,
       "newFiles": 0
+    },
+    "requestedFinalView": {
+      "file": "Marginote Demo 8/Read without losing your place.md",
+      "mode": "preview",
+      "scrollTop": 0,
+      "previewSource": "cards",
+      "previewTrigger": "nearby"
     }
   },
-  "testedBuildSha256": "d6b570084aba3fce81c7bdf6b460624e14481324fd9e03dbd015647f5855a4d0",
+  "testedBuildSha256": "6eaf6a2b283f6792029a37386e8d988ab5ab44cbb76c94fbd6b382da66a8193c",
+  "behavior": {
+    "nearby": [
+      {
+        "stage": "reading-nearby",
+        "alias": "an illustrated note",
+        "anchor": {
+          "x": 299.078125,
+          "y": 366.640625,
+          "width": 129.9296875,
+          "height": 19
+        },
+        "pane": {
+          "left": 44,
+          "top": 40,
+          "right": 1200,
+          "bottom": 800
+        },
+        "samples": [
+          {
+            "point": {
+              "direction": "left",
+              "x": 149.078125,
+              "y": 376.140625
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 441.0078125,
+                "top": 383.75,
+                "right": 831.0078125,
+                "bottom": 784
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 441.0078125,
+                "y": 383.75
+              }
+            },
+            "movement": null
+          },
+          {
+            "point": {
+              "direction": "below",
+              "x": 364.04296875,
+              "y": 535.640625
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 441.0078125,
+                "top": 123.390625,
+                "right": 831.0078125,
+                "bottom": 523.640625
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 441.0078125,
+                "y": 523.640625
+              }
+            },
+            "movement": {
+              "card": 260.359375,
+              "connector": 139.890625
+            }
+          },
+          {
+            "point": {
+              "direction": "right",
+              "x": 579.0078125,
+              "y": 376.140625
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 593.0078125,
+                "top": 383.75,
+                "right": 983.0078125,
+                "bottom": 784
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 593.0078125,
+                "y": 383.75
+              }
+            },
+            "movement": {
+              "card": 301.4813495896398,
+              "connector": 206.5753784043264
+            }
+          }
+        ]
+      },
+      {
+        "stage": "live-preview-nearby",
+        "alias": "an illustrated note",
+        "anchor": {
+          "x": 299.078125,
+          "y": 396.546875,
+          "width": 129.9296875,
+          "height": 19
+        },
+        "pane": {
+          "left": 44,
+          "top": 40,
+          "right": 1200,
+          "bottom": 800
+        },
+        "samples": [
+          {
+            "point": {
+              "direction": "left",
+              "x": 149.078125,
+              "y": 406.046875
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 441.0078125,
+                "top": 383.75,
+                "right": 831.0078125,
+                "bottom": 784
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 441.0078125,
+                "y": 383.75
+              }
+            },
+            "movement": null
+          },
+          {
+            "point": {
+              "direction": "below",
+              "x": 364.04296875,
+              "y": 565.546875
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 441.0078125,
+                "top": 153.296875,
+                "right": 831.0078125,
+                "bottom": 553.546875
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 441.0078125,
+                "y": 553.546875
+              }
+            },
+            "movement": {
+              "card": 230.453125,
+              "connector": 169.796875
+            }
+          },
+          {
+            "point": {
+              "direction": "right",
+              "x": 579.0078125,
+              "y": 406.046875
+            },
+            "distance": 150,
+            "geometry": {
+              "count": 1,
+              "rect": {
+                "left": 593.0078125,
+                "top": 383.75,
+                "right": 983.0078125,
+                "bottom": 784
+              },
+              "width": 1200,
+              "height": 800,
+              "line": true,
+              "corner": true
+            },
+            "rendering": {
+              "passive": true,
+              "connector": {
+                "x": 593.0078125,
+                "y": 383.75
+              }
+            },
+            "movement": {
+              "card": 276.06637394341533,
+              "connector": 227.89247192429508
+            }
+          }
+        ]
+      }
+    ],
+    "hoverStationary": true,
+    "clickPinning": true
+  },
   "visualReview": {
     "status": "passed",
-    "frames": ["nearby-text", "nearby-image", "hover-pinned", "note-settings", "ordinary-note"],
+    "frames": [
+      "nearby-text",
+      "nearby-image",
+      "reading-nearby-left",
+      "reading-nearby-below",
+      "reading-nearby-right",
+      "live-preview-nearby-left",
+      "live-preview-nearby-below",
+      "live-preview-nearby-right",
+      "hover-pinned",
+      "scrolling-passages",
+      "scrolled-card",
+      "note-settings",
+      "ordinary-note"
+    ],
+    "gifFrames": [
+      "reading-nearby-left",
+      "reading-nearby-below",
+      "reading-nearby-right",
+      "live-preview-nearby-left",
+      "live-preview-nearby-below",
+      "live-preview-nearby-right",
+      "scrolled-card",
+      "ordinary-note"
+    ],
     "listingScreenshots": ["text-card", "image-card", "mixed-card", "ordinary-note", "settings"],
-    "notes": "All five final intermediate MP4 frames and all five listing PNGs were opened and visually inspected. English text, original artwork, real outlines and connectors, cursor movement, settings, and note content were readable. Listing PNGs contain no cursor or caption documentation overlay."
+    "poster": "passed",
+    "notes": "Thirteen final MP4 frames, eight GIF frames, five listing PNGs, and the poster were opened for visual inspection. All six Reading View/Live Preview direction samples show the complete mixed-card text and image, with captions clear of the card and anchor. English interface/sample titles/captions and varied Latin Lorem ipsum passages remain legible. Listing PNGs have no cursor or caption overlay."
+  },
+  "previousMedia": ".qa/demo-1789798217218/previous-media",
+  "lowerAnchorEvidence": [
+    {
+      "path": "examples/reading-vault/Marginote Demo/Read without losing your place.md",
+      "href": "Marginote Demo/Cards/Learning by watching",
+      "alias": "return to the observation",
+      "count": 1
+    },
+    {
+      "path": ".qa/vault/Marginote Demo 8/Read without losing your place.md",
+      "href": "Marginote Demo 8/Cards/Learning by watching",
+      "alias": "return to the observation",
+      "count": 1
+    }
+  ],
+  "mediaHashes": {
+    "marginote.mp4": {
+      "sha256": "a570f30d1ba8c8d9015c72a2e4709311d60dfb711c3208d9d0510490f5746371",
+      "bytes": 2030115
+    },
+    "marginote.gif": {
+      "sha256": "4430d731a26910f2d51ee1bcb51cf9217d950f19c956048f9a5bb872e5314e18",
+      "bytes": 4060784
+    },
+    "poster.png": {
+      "sha256": "07bd3503299fec88df27b91041f3c69612b5959dea1afe1f3178795675b66659",
+      "bytes": 334152
+    }
   }
 }

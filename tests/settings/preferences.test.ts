@@ -2,15 +2,15 @@ import { describe, expect, test } from "bun:test";
 import { parseSettings } from "../../src/preview/preferences";
 
 describe("preview preferences", () => {
-  test.each([undefined, null, [], "invalid", 2].map((input) => ({ input })))(
-    "uses a focused, deliberate default when saved data is invalid: $input",
+  test.each([undefined, null, {}, [], "invalid", 2].map((input) => ({ input })))(
+    "starts with annotation proximity previews when saved data is absent or invalid: $input",
     ({ input }) => {
       // Given malformed or absent saved plugin data.
       // When the saved settings cross the plugin boundary.
       const settings = parseSettings(input);
 
       // Then ordinary note links stay native until explicitly enabled.
-      expect(settings).toEqual({ previewSource: "cards", previewTrigger: "hover" });
+      expect(settings).toEqual({ previewSource: "cards", previewTrigger: "nearby" });
     },
   );
 
@@ -50,7 +50,7 @@ describe("preview preferences", () => {
     const settings = parseSettings(input);
 
     // Then the note preference is retained with the safe trigger default.
-    expect(settings).toEqual({ previewSource: "notes", previewTrigger: "hover" });
+    expect(settings).toEqual({ previewSource: "notes", previewTrigger: "nearby" });
   });
 
   test("keeps automatic previews off when only the source field is damaged", () => {
@@ -64,11 +64,11 @@ describe("preview preferences", () => {
   test("isolates default settings when a previous instance changes its preferences", () => {
     const earlier = parseSettings(undefined);
     earlier.previewSource = "both";
-    earlier.previewTrigger = "nearby";
+    earlier.previewTrigger = "hover";
 
     const settings = parseSettings(undefined);
 
-    expect(settings).toEqual({ previewSource: "cards", previewTrigger: "hover" });
+    expect(settings).toEqual({ previewSource: "cards", previewTrigger: "nearby" });
   });
 
   test("preserves a disabled legacy preview preference when migrating", () => {

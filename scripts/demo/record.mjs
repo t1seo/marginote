@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { access, copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { captureErrors, connectQa } from "../qa/connect.mjs";
@@ -25,13 +26,35 @@ async function preflight() {
     loadSample(),
   ]);
   console.log(
-    "Demo tooling and all six English sample files passed preflight. No app connection or recording was made.",
+    "Demo tooling and six sample files with English prose and Latin passages passed preflight. No app connection or recording was made.",
   );
 }
 
 async function record() {
+  const expectedBuildSha256 = process.argv
+    .find((argument) => argument.startsWith("--expected-build-sha256="))
+    ?.split("=")[1];
+  assert.match(
+    expectedBuildSha256 ?? "",
+    /^[a-f0-9]{64}$/u,
+    "Provide the verified candidate's --expected-build-sha256.",
+  );
+  const bundle = resolve(root, ".qa/vault/.obsidian/plugins/marginote/main.js");
+  const testedBuildSha256 = createHash("sha256")
+    .update(await readFile(bundle))
+    .digest("hex");
+  assert.equal(
+    testedBuildSha256,
+    expectedBuildSha256,
+    "The installed candidate must match the approved QA build.",
+  );
   const directory = resolve(root, `.qa/demo-${Date.now()}`);
   await mkdir(directory, { recursive: true });
+  const previousMedia = resolve(directory, "previous-media");
+  await mkdir(previousMedia);
+  for (const name of ["marginote.gif", "marginote.mp4", "poster.png", "recording.json"]) {
+    await copyFile(resolve(output, name), resolve(previousMedia, name));
+  }
   const { browser, page, receipt } = await connectQa();
   const errors = captureErrors(page);
   const saved = await saveAppState(page).catch(async (error) => {
@@ -42,10 +65,18 @@ async function record() {
     await browser.close();
     throw error;
   });
-  const session = { errors, restored: false, overlaysRemoved: false, cdpDisconnected: false };
+  const session = {
+    errors,
+    restored: false,
+    overlaysRemoved: false,
+    cdpDisconnected: false,
+    recordingSpellcheck: false,
+    originalSpellcheck: saved.app.spellcheck,
+  };
   let recorder = null;
   let recording;
   let markers;
+  let behavior;
   let paths;
   let preparedNotes;
   let language;
@@ -53,12 +84,14 @@ async function record() {
   try {
     await page.bringToFront();
     await page.setViewportSize({ width: 1200, height: 800 });
-    await page.evaluate(() => {
+    await page.evaluate(async () => {
       require("electron").webFrame.setZoomFactor(1);
       document.body.classList.remove("theme-dark");
       document.body.classList.add("theme-light");
       app.workspace.leftSplit.collapse();
       app.workspace.rightSplit.collapse();
+      app.vault.setConfig("spellcheck", false);
+      await app.vault.saveConfig();
     });
     paths = await createDemoFixture(page);
     session.fixture = paths.folder;
@@ -70,10 +103,15 @@ async function record() {
     await page.mouse.move(1050, 650);
     await installDemoOverlays(page);
     recorder = await startRecording(page, directory);
-    markers = await performDemo(page, paths, recorder);
+    ({ markers, behavior } = await performDemo(page, paths, recorder));
     recording = await recorder.stop();
     recorder = null;
-    await removeDemoOverlays(page);
+    session.captionLayout = await removeDemoOverlays(page);
+    assert.equal(
+      session.captionLayout.overlapFrames,
+      0,
+      "Captions must remain clear of product cards and outlines.",
+    );
     screenshots = await captureListingScreenshots(
       page,
       paths,
@@ -98,17 +136,44 @@ async function record() {
       assert.equal(remaining, 0, "Demo-only overlay nodes must be removed.");
       session.overlaysRemoved = true;
       session.restored = true;
+      session.spellcheckRestored = true;
       session.originalNotes = await assertNotesUnchanged(receipt.vault, originalNotes);
       if (preparedNotes)
         session.preparedNotes = await assertNotesUnchanged(receipt.vault, preparedNotes);
+      if (screenshots && process.argv.includes("--leave-sample-open")) {
+        await preferences(page, "cards", "nearby");
+        await openNote(page, paths.source);
+        await page.locator(".markdown-preview-view:visible").evaluate((node) => {
+          node.scrollTop = 0;
+        });
+        await page.mouse.move(50, 50);
+        session.requestedFinalView = {
+          file: paths.source,
+          mode: "preview",
+          scrollTop: 0,
+          previewSource: "cards",
+          previewTrigger: "nearby",
+        };
+      }
     } finally {
       await browser.close();
       session.cdpDisconnected = true;
       await writeFile(resolve(directory, "session.json"), `${JSON.stringify(session, null, 2)}\n`);
+      if (screenshots) {
+        console.log(
+          JSON.stringify({ phase: "app-disconnected", directory, sample: paths.source, session }),
+        );
+      }
     }
   }
+  assert.equal(
+    createHash("sha256")
+      .update(await readFile(bundle))
+      .digest("hex"),
+    testedBuildSha256,
+  );
   const report = await encodeRecording(recording, output, markers);
-  Object.assign(report, { language, screenshots, session });
+  Object.assign(report, { language, screenshots, session, testedBuildSha256, behavior });
   await writeFile(resolve(output, "recording.json"), `${JSON.stringify(report, null, 2)}\n`);
   console.log(JSON.stringify(report, null, 2));
 }

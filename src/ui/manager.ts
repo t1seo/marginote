@@ -42,10 +42,11 @@ export class AnnotationManager extends Component {
       ),
     );
     owner.anchors.add(anchor);
+    owner.anchorsChanged();
     let released = false;
     return {
       retarget: (nextNode) => {
-        if (released) return;
+        if (released || this.controllers.get(doc) !== owner) return;
         const changed = anchor.node !== nextNode;
         anchor.retarget(nextNode);
         owner.retarget(anchor, changed);
@@ -53,10 +54,9 @@ export class AnnotationManager extends Component {
       release: () => {
         if (released) return;
         released = true;
+        if (this.controllers.get(doc) !== owner) return;
         owner.remove(anchor);
         owner.removeChild(anchor);
-        if (owner.anchors.size === 0 && this.controllers.get(doc) === owner)
-          this.releaseDocument(doc);
       },
     };
   }

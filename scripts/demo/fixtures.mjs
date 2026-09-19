@@ -16,12 +16,25 @@ export async function loadSample() {
       if (entry.isDirectory()) await visit(path);
       else {
         const content = await readFile(path, "utf8");
-        assert.ok(!/[\u3131-\u318e\uac00-\ud7a3]/u.test(path + content), "Sample must be English.");
+        assert.ok(
+          !/[\u3131-\u318e\uac00-\ud7a3]/u.test(path + content),
+          "Sample presentation must not contain Korean text.",
+        );
         files.push({ path: relative(sample, path), content });
       }
     }
   }
   await visit(sample);
+  const reading = files.find((file) => file.path === "Read without losing your place.md");
+  assert.ok(reading);
+  const paragraphs = reading.content.split(/\n\n+/u).filter((paragraph) => paragraph.length > 180);
+  assert.ok(paragraphs.length >= 8, "The sample needs varied passages for real scrolling.");
+  assert.equal(
+    new Set(paragraphs).size,
+    paragraphs.length,
+    "Scrolling paragraphs must not repeat.",
+  );
+  assert.ok(!/^\d+\. /mu.test(reading.content), "The reading sample must not use numbered filler.");
   for (const kind of ["text", "image", "mixed"]) {
     assert.equal(
       files.filter((file) => file.content.includes(`marginote-kind: ${kind}`)).length,

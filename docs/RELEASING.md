@@ -1,6 +1,6 @@
 # Releasing Marginote
 
-The public source repository is `t1seo/marginote`. Release tags must match the manifest version exactly, for example `0.1.0`, without a `v` prefix.
+The public source repository is `t1seo/marginote`. Release tags must match the manifest version exactly, for example `0.1.1`, without a `v` prefix.
 
 ## Prepare and verify
 
@@ -9,6 +9,10 @@ The public source repository is `t1seo/marginote`. Release tags must match the m
 3. Run `bun install --frozen-lockfile` and `bun run check:release`.
 4. Test the candidate in an isolated Obsidian vault, including the behavior changed in this version. Preserve the recorded application/version, source hashes, and limitations.
 5. Review the diff and verify CI on the exact main commit before creating a tag.
+
+For Reading view document ownership, run `node tests/reading/adoption.browser.mjs` with Google Chrome installed. This exercises real DOM adoption and MutationObserver delivery with a small host-lifecycle fixture. It is separate from the Bun unit-test count. In the owned isolated Obsidian instance, also run `node scripts/qa/reading-popout.mjs` alongside the maintained application suites: this verifies actual pop-out ownership, Escape/focus, outside-click dismissal, and hover. A passing browser fixture does not replace this application check.
+
+For proximity behavior, run `node tests/ui/nearby.browser.mjs` with Google Chrome installed, then `node scripts/qa/nearby.mjs` in the owned isolated Obsidian instance. Check distant activation, measurable card movement, scrolling with no new pointer input, selection and Escape suppression in both Reading View and Live Preview. Fresh settings must select **Near text · follows pointer**; saved stationary-hover and explicit-only choices must survive an upgrade.
 
 ## Publish installation assets
 

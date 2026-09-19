@@ -23,7 +23,8 @@ export async function installDemoOverlays(page) {
     Object.assign(caption.style, {
       position: "fixed",
       left: "50%",
-      bottom: "18px",
+      top: "70px",
+      bottom: "auto",
       transform: "translateX(-50%)",
       background: "rgba(30, 42, 36, 0.94)",
       color: "#fff",
@@ -45,12 +46,45 @@ export async function installDemoOverlays(page) {
     document.addEventListener("pointermove", move, { passive: true });
     document.addEventListener("pointerdown", click, { passive: true });
     document.body.append(cursor, caption);
+    const statistics = { checks: 0, top: 0, bottom: 0, overlapFrames: 0 };
+    const intersects = (first, second) =>
+      first.left < second.right &&
+      first.right > second.left &&
+      first.top < second.bottom &&
+      first.bottom > second.top;
+    let frame;
+    const positionCaption = () => {
+      const blockers = [
+        ...document.querySelectorAll(
+          ".marginote-card, .marginote-connector rect:not(.marginote-endpoint)",
+        ),
+      ].map((node) => node.getBoundingClientRect());
+      caption.style.top = "70px";
+      caption.style.bottom = "auto";
+      if (
+        document.querySelector(".modal-container") ||
+        blockers.some((box) => intersects(caption.getBoundingClientRect(), box))
+      ) {
+        caption.style.top = "auto";
+        caption.style.bottom = "18px";
+      }
+      if (caption.textContent) {
+        statistics.checks += 1;
+        statistics[caption.style.top === "70px" ? "top" : "bottom"] += 1;
+        if (blockers.some((box) => intersects(caption.getBoundingClientRect(), box)))
+          statistics.overlapFrames += 1;
+      }
+      frame = requestAnimationFrame(positionCaption);
+    };
+    positionCaption();
     window.marginoteDemoCleanup = () => {
+      cancelAnimationFrame(frame);
       document.removeEventListener("pointermove", move);
       document.removeEventListener("pointerdown", click);
       cursor.remove();
       caption.remove();
       delete window.marginoteDemoCleanup;
+      return statistics;
     };
   });
 }
@@ -62,5 +96,39 @@ export async function caption(page, text) {
 }
 
 export async function removeDemoOverlays(page) {
-  await page.evaluate(() => window.marginoteDemoCleanup?.());
+  return page.evaluate(() => window.marginoteDemoCleanup?.());
 }
+
+export async function assertCaptionClear(page) {
+  await page.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+  );
+  const geometry = await page.locator("#marginote-demo-caption").evaluate((node) => {
+    const rect = node.getBoundingClientRect();
+    return {
+      top: rect.top,
+      bottom: rect.bottom,
+      intersections: [
+        ...document.querySelectorAll(
+          ".marginote-card, .marginote-connector rect:not(.marginote-endpoint)",
+        ),
+      ].filter((target) => {
+        const box = target.getBoundingClientRect();
+        return (
+          rect.left < box.right &&
+          rect.right > box.left &&
+          rect.top < box.bottom &&
+          rect.bottom > box.top
+        );
+      }).length,
+    };
+  });
+  assert.equal(
+    geometry.intersections,
+    0,
+    "Documentation captions must not cover a card or annotation outline.",
+  );
+  return geometry;
+}
+
+import assert from "node:assert/strict";

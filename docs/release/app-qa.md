@@ -1,5 +1,7 @@
 # Release candidate application QA
 
+**Historical record.** The later [downloaded 0.1.0 review](downloaded-app-qa.md) found additional Reading view pop-out failures and supersedes this earlier passing gate. A 0.1.1 correction is being verified; see [release verification](verification.md) for the current state. The results below remain the observations from the earlier candidate run.
+
 Release candidate: **Marginote 0.1.0**. Date: September 19, 2026.
 
 **Verdict: PASS. Confidence: HIGH.** The final consecutive run passed all **66 application scenarios** on the unchanged 0.1.0 candidate, with no collected page errors or error-level console messages. It ran on September 19, 2026, from 04:36:11 to 04:37:28 UTC. The five English listing screenshots and twelve sampled video frames also passed independent visual inspection. These are new release-candidate results, not reused MVP results.
@@ -70,6 +72,8 @@ The reviewer tested three explanations: leaked Marginote listeners, transient na
 The maintained lifecycle runner now parks the pointer away from links before disabling Marginote and waits for native hover-popover elements to disappear before counting listeners. It still disables an open Marginote card, checks every controller/anchor/timer/command cleanup assertion, and compares the same raw and filtered listener counts over three cycles. No host or product listener was newly excluded. The correction changes the QA precondition to compare the same host state, without modifying the product or its installed bytes. The complete 66-scenario sequence passed after this correction. The updated runner also passed Biome.
 
 ## Independent English media inspection
+
+This section records the earlier 24-second capture inspected during candidate QA. The later English/Lorem ipsum recording replaces those media files; its current measurements and inspection results are in [demo verification](demo-qa.md).
 
 The reviewer opened all five final 1200×800 listing PNGs individually. Text, image, mixed, ordinary-note, and settings views contain readable English; card content and controls fit in the viewport, the original local illustration is visible, and no recording caption or cursor marker appears. All five files are below 5 MB. The settings screenshot shows Annotation cards only and On hover.
 

@@ -9,9 +9,9 @@ export const HOVER_PREVIEW_DELAY_MS = 250;
 export const SettingsSchema = z
   .object({
     previewSource: PreviewSourceSchema.catch("cards"),
-    previewTrigger: PreviewTriggerSchema.catch("hover"),
+    previewTrigger: PreviewTriggerSchema.catch("nearby"),
   })
-  .catch(() => ({ previewSource: "cards", previewTrigger: "hover" }) as const);
+  .catch(() => ({ previewSource: "cards", previewTrigger: "nearby" }) as const);
 
 export type MarginoteSettings = z.infer<typeof SettingsSchema>;
 
@@ -34,10 +34,10 @@ const SOURCE_SUMMARIES = {
 } as const satisfies Record<PreviewSource, string>;
 
 const TRIGGER_SUMMARIES = {
-  hover: "Hover for a preview, or click to keep it open.",
+  hover: "Hover directly over a link for a stationary preview, or click to keep it open.",
   click: "Automatic previews are off. Click, tap or use Enter/Space to open a preview.",
   nearby:
-    "Moving near eligible text shows a passive preview. This can feel busy in notes with many links.",
+    "Move beside or below eligible text to preview it. The card follows your pointer; click the link to keep it open.",
 } as const satisfies Record<PreviewTrigger, string>;
 
 export function previewSummary(settings: MarginoteSettings): string {

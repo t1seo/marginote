@@ -29,19 +29,22 @@ try {
     async () => {
       const paragraph = page
         .locator(".markdown-preview-view:visible p")
-        .filter({ hasText: "읽기 중" })
+        .filter({ hasText: "Learning through" })
         .first();
       await paragraph.scrollIntoViewIfNeeded();
       const bounds = await paragraph.boundingBox();
+      const anchorBounds = await readingLink(page, "Annotations/Text").boundingBox();
       assert.ok(bounds);
-      await page.mouse.move(bounds.x + 1, bounds.y + bounds.height / 2);
+      assert.ok(anchorBounds);
+      const lineY = anchorBounds.y + anchorBounds.height / 2;
+      await page.mouse.move(bounds.x + 1, lineY);
       await page.mouse.down();
-      await page.mouse.move(bounds.x + bounds.width - 1, bounds.y + bounds.height / 2, {
+      await page.mouse.move(bounds.x + bounds.width - 1, lineY, {
         steps: 15,
       });
       await page.mouse.up();
       const selected = await page.evaluate(() => getSelection().toString());
-      assert.ok(selected.includes("인지적 도제"), selected);
+      assert.ok(selected.includes("careful observation"), selected);
       await readingLink(page, "Annotations/Text").hover();
       await elapsed(400);
       assert.equal(await page.locator(".marginote-card").count(), 0);
@@ -115,6 +118,10 @@ try {
   );
   await scenario("stationary-pointer nearby preview responds to scroll and expires", async () => {
     await preferences(page, "cards", "nearby");
+    await page.mouse.move(40, 40);
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+    );
     await readingLink(page, "Annotations/Text").scrollIntoViewIfNeeded();
     const bounds = await readingLink(page, "Annotations/Text").boundingBox();
     assert.ok(bounds);

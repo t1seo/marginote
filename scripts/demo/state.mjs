@@ -11,6 +11,11 @@ export async function saveAppState(page) {
       light: document.body.classList.contains("theme-light"),
       dark: document.body.classList.contains("theme-dark"),
       zoom: require("electron").webFrame.getZoomFactor(),
+      spellcheck: {
+        effective: app.vault.getConfig("spellcheck"),
+        hasOverride: Object.hasOwn(app.vault.config, "spellcheck"),
+        override: app.vault.config.spellcheck ?? null,
+      },
       settings: await app.plugins.plugins.marginote.loadData(),
     })),
   };
@@ -21,7 +26,7 @@ export async function restoreAppState(page, state, preferences) {
   await preferences(
     page,
     state.app.settings?.previewSource ?? "cards",
-    state.app.settings?.previewTrigger ?? "hover",
+    state.app.settings?.previewTrigger ?? "nearby",
   );
   await page.evaluate(async (saved) => {
     app.setting.close();
@@ -40,6 +45,11 @@ export async function restoreAppState(page, state, preferences) {
     document.body.classList.toggle("theme-light", saved.light);
     document.body.classList.toggle("theme-dark", saved.dark);
     require("electron").webFrame.setZoomFactor(saved.zoom);
+    app.vault.setConfig(
+      "spellcheck",
+      saved.spellcheck.hasOverride ? saved.spellcheck.override : undefined,
+    );
+    await app.vault.saveConfig();
   }, state.app);
   if (state.viewport) await page.setViewportSize(state.viewport);
   else {
@@ -48,6 +58,11 @@ export async function restoreAppState(page, state, preferences) {
     await client.detach();
   }
   const restored = await saveAppState(page);
+  assert.deepEqual(
+    restored.app.spellcheck,
+    state.app.spellcheck,
+    "Restore spelling preference and override presence",
+  );
   for (const key of ["leafId", "leftCollapsed", "rightCollapsed", "light", "dark", "zoom"]) {
     assert.equal(restored.app[key], state.app[key], `Restore ${key}`);
   }
@@ -59,7 +74,7 @@ export async function restoreAppState(page, state, preferences) {
     );
   }
   for (const key of ["previewSource", "previewTrigger"]) {
-    const fallback = key === "previewSource" ? "cards" : "hover";
+    const fallback = key === "previewSource" ? "cards" : "nearby";
     assert.equal(
       restored.app.settings?.[key],
       state.app.settings?.[key] ?? fallback,

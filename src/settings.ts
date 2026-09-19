@@ -53,9 +53,9 @@ export class MarginoteSettingsTab extends PluginSettingTab {
       .addDropdown((dropdown) => {
         dropdown.selectEl.setAttribute("aria-label", "Automatic preview");
         dropdown
-          .addOption("hover", "On hover")
+          .addOption("nearby", "Near text · follows pointer")
+          .addOption("hover", "Over link · stays in place")
           .addOption("click", "Off")
-          .addOption("nearby", "Near the text")
           .setValue(this.settings.previewTrigger)
           .onChange(async (value) => {
             this.settings.previewTrigger = PreviewTriggerSchema.parse(value);

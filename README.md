@@ -14,11 +14,11 @@
 
 Connect words in your Obsidian notes to floating text and image cards. A fine outline and connector keep each card tied to its place in the page. Preview ordinary note links the same way, and choose which kinds of links Marginote handles.
 
-![Marginote showing connected text and image cards, hover and click interactions, and ordinary note previews in an English Obsidian sample](docs/demo/marginote.gif)
+![Marginote cards following the pointer to the left, below, and right in Reading view and Live Preview, with English notes and Lorem ipsum scrolling passages](docs/demo/marginote.gif)
 
 [Watch the MP4](docs/demo/marginote.mp4) · [View a still](docs/demo/poster.png) · [Try the sample vault](examples/reading-vault) · [Recording details](docs/demo/README.md)
 
-The demo uses real Obsidian with English sample notes. It starts with the optional **Near the text** mode, then shows the default hover behavior, click pinning, and ordinary note previews. The pointer marker and captions are recording aids.
+The demo uses real Obsidian with an English interface and sample notes, plus varied Lorem ipsum passages for scrolling. Move left, below, and right of a link to see its card follow in both Reading view and Live Preview. It also shows stationary hover, click pinning, ordinary note previews, and a card farther down the page. The pointer marker and captions are recording aids. See the recording details for the captured version.
 
 ## A quick tour
 
@@ -26,7 +26,7 @@ The demo uses real Obsidian with English sample notes. It starts with the option
 2. Run **Marginote: Create annotation card from selection** from the command palette.
 3. Choose **Text**, **Image**, or **Text and image**, then add your content. Images use an existing file in your vault.
 4. Select **Create card**. Marginote saves a Markdown card in `Annotations/` and links the selected phrase to it.
-5. Hover over the phrase in Reading view or Live Preview to read the card. Click to keep it open.
+5. Move beside or below the phrase in Reading view or Live Preview. Its card appears nearby and follows your pointer. Click the phrase to keep the card open.
 
 | What you can preview | What appears |
 | --- | --- |
@@ -44,13 +44,15 @@ Open **Settings → Marginote**. Two settings control the experience:
 | Setting | Options | Default |
 | --- | --- | --- |
 | Preview content | Annotation cards only / Ordinary note links only / Both | Annotation cards only |
-| Automatic preview | On hover / Off / Near the text | On hover |
+| Automatic preview | Near text · follows pointer / Over link · stays in place / Off | Near text · follows pointer |
 
-**On hover** opens a card after a short pause, about 250 ms. Move the pointer onto the card to keep reading; it does not expire while you read it.
+**Near text · follows pointer** opens a preview within 300 pixels beside or below an eligible link, inside the same note pane. You do not need to touch the link. The card follows your pointer and updates as you scroll. These passive previews let pointer input pass through and disappear after a reading interval. Click the source link to open an interactive card. Automatic proximity previews use a mouse or trackpad in windows at least 768 pixels wide.
+
+**Over link · stays in place** opens a stationary card after a short pause directly over the link, about 250 ms. Move the pointer onto the card to keep reading; it does not expire while you read it.
 
 **Off** disables automatic previews. Click, tap, or use the keyboard to open a card explicitly.
 
-**Near the text** brings up nearby cards as the pointer moves through the page. These passive previews let pointer input pass through and disappear after a reading interval. Click the source link to open an interactive card. This optional mode behaves differently from the default hover mode.
+Existing saved preferences survive upgrades. If you used an earlier version, choose **Near text · follows pointer** to switch from stationary hover to proximity previews.
 
 Choose **Ordinary note links only** if you want link previews without annotation cards, or **Both** to use both kinds. Changes apply to open views and windows immediately. Links outside your selection keep their usual Obsidian behavior.
 
@@ -113,7 +115,7 @@ Community submission and review are tracked separately from GitHub releases. See
 
 ## Sample vault
 
-The [English sample vault](examples/reading-vault) contains the notes and original illustration used in the demo, including text, image, mixed, and ordinary-note examples. Open a copy as a separate Obsidian vault and install the three release files there. The sample guide explains the two preview settings.
+The [sample vault](examples/reading-vault) contains the English notes and original illustration used in the demo, including text, image, mixed, and ordinary-note examples. A longer reading passage uses varied Lorem ipsum paragraphs to try scrolling and returning to a linked idea. Open a copy as a separate Obsidian vault and install the three release files there. The sample guide explains the two preview settings.
 
 ## Privacy and compatibility
 
@@ -128,7 +130,7 @@ Only local wiki image embeds are loaded automatically inside previews. Markdown 
 - **Desktop:** tested in Obsidian 1.10.6, including split panes, pop-out windows, light/dark appearance, and zoom.
 - **Mobile:** not supported in this release. Touch and composition checks used Chromium input automation; physical mobile devices and operating-system IMEs were not certified.
 
-Complex nested Markdown may render differently from the full note. The optional proximity mode has a different accessibility contract from hover; this release does not claim comprehensive screen-reader or WCAG certification.
+Complex nested Markdown may render differently from the full note. Passive proximity previews have a different accessibility contract from stationary hover and explicit cards; this release does not claim comprehensive screen-reader or WCAG certification.
 
 ## Development
 

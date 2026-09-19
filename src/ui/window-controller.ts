@@ -39,9 +39,12 @@ export class WindowController extends Component {
         close: () => {
           if (this.intent !== "explicit") this.close(false);
         },
+        hide: () => {
+          if (this.intent !== "explicit") this.close(false, false);
+        },
         move: (point) => {
           this.active?.reposition(point);
-          this.resetTimer();
+          if (this.active) this.resetTimer();
         },
       }),
     );
@@ -85,12 +88,16 @@ export class WindowController extends Component {
           this.automatic.suppress();
           this.close(false);
           if (restore) anchor?.focus();
-        } else if (this.intent === "nearby") this.automatic.stop();
+        } else if (this.intent === "nearby" || (!this.active && !this.requested))
+          this.automatic.stop();
       },
       true,
     );
     this.registerDomEvent(this.doc, "selectionchange", () => {
-      if (!this.doc.getSelection()?.isCollapsed && this.intent !== "explicit")
+      if (
+        !this.doc.getSelection()?.isCollapsed &&
+        (this.intent !== "explicit" || (!this.active && !this.requested))
+      )
         this.automatic.stop();
     });
     this.registerDomEvent(
@@ -141,11 +148,18 @@ export class WindowController extends Component {
     if (anchor.node.getAttribute("aria-expanded") !== expanded)
       anchor.node.setAttribute("aria-expanded", expanded);
     if (active && changed) this.active?.retargetAnchor();
+    this.anchorsChanged();
   }
 
   remove(anchor: AnnotationAnchor): void {
-    if (this.active?.anchor === anchor || this.requested === anchor) this.close(false);
+    if (this.active?.anchor === anchor || this.requested === anchor)
+      this.close(false, this.intent !== "nearby");
     this.anchors.delete(anchor);
+    this.anchorsChanged();
+  }
+
+  anchorsChanged(): void {
+    this.automatic.schedule();
   }
 
   refresh(): void {
@@ -169,7 +183,7 @@ export class WindowController extends Component {
 
   private resetTimer(): void {
     this.win.clearTimeout(this.timer);
-    this.timer = this.win.setTimeout(() => this.close(false), this.duration);
+    this.timer = this.win.setTimeout(() => this.close(false, false), this.duration);
   }
 
   private async open(
@@ -198,6 +212,7 @@ export class WindowController extends Component {
         intent === "nearby" ? "preview" : "interactive",
         point,
         (restore) => this.close(restore),
+        () => this.close(false, this.intent !== "nearby"),
       );
       this.active = overlay;
       this.addChild(overlay);

@@ -72,7 +72,15 @@ export async function encodeRecording(recording, output, markers) {
   for (const name of [
     "nearby-text",
     "nearby-image",
+    "reading-nearby-left",
+    "reading-nearby-below",
+    "reading-nearby-right",
+    "live-preview-nearby-left",
+    "live-preview-nearby-below",
+    "live-preview-nearby-right",
     "hover-pinned",
+    "scrolling-passages",
+    "scrolled-card",
     "note-settings",
     "ordinary-note",
   ]) {

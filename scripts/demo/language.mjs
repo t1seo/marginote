@@ -36,6 +36,15 @@ export async function verifyEnglishHost(page) {
       .waitFor();
   }
   await assertEnglishSurface(page);
+  const automaticPreviewOptions = await page
+    .getByLabel("Automatic preview", { exact: true })
+    .locator("option")
+    .allTextContents();
+  assert.deepEqual(automaticPreviewOptions, [
+    "Near text · follows pointer",
+    "Over link · stays in place",
+    "Off",
+  ]);
   const versions = await page.evaluate(() => ({
     plugin: app.plugins.plugins.marginote.manifest.version,
     electron: process.versions.electron,
@@ -47,6 +56,7 @@ export async function verifyEnglishHost(page) {
   return {
     selectedHostLanguage: language,
     verifiedHostLabels: ["General", "Core plugins", "Community plugins"],
+    automaticPreviewOptions,
     versions: { obsidian: version, ...versions },
   };
 }

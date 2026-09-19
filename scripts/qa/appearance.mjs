@@ -6,6 +6,23 @@ import { assertCard, closeCard, openNote, preferences, readingLink } from "./pre
 const { browser, page } = await connectQa();
 const errors = captureErrors(page),
   results = [];
+async function renderReference(target) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    await page.locator(".markdown-preview-view:visible").evaluate((node) => {
+      node.scrollTop = node.scrollHeight;
+    });
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+    );
+    const link = readingLink(page, target);
+    if (await link.count()) {
+      const bounds = await link.boundingBox();
+      const height = await page.evaluate(() => innerHeight);
+      if (bounds && bounds.y >= 70 && bounds.y + bounds.height <= height) return;
+    }
+  }
+  await readingLink(page, target).waitFor({ timeout: 3000 });
+}
 try {
   await openNote(page);
   await preferences(page, "cards", "click");
@@ -22,6 +39,7 @@ try {
       for (const zoom of [1, 1.5]) {
         await page.setViewportSize({ width, height: 900 });
         await page.evaluate((zoom) => require("electron").webFrame.setZoomFactor(zoom), zoom);
+        await renderReference("Annotations/Large image");
         await readingLink(page, "Annotations/Large image").click();
         await page.waitForFunction(
           () => document.querySelector(".marginote-card img")?.naturalWidth > 0,
@@ -43,6 +61,7 @@ try {
   }
   await page.setViewportSize({ width: 1000, height: 900 });
   await page.evaluate(() => require("electron").webFrame.setZoomFactor(1));
+  await renderReference("Annotations/Long");
   await readingLink(page, "Annotations/Long").click();
   await assertCard(page, "text");
   assert.equal(
@@ -57,6 +76,7 @@ try {
     status: "passed",
   });
   await closeCard(page);
+  await renderReference("Annotations/Missing image");
   await readingLink(page, "Annotations/Missing image").click();
   assert.match(await page.locator(".marginote-content").innerText(), /Image unavailable/);
   await closeCard(page);

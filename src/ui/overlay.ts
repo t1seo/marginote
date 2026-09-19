@@ -21,6 +21,7 @@ export class CardOverlay extends Component {
     readonly mode: CardMode,
     point: Point,
     private readonly close: (restoreFocus: boolean) => void,
+    private readonly anchorUnavailable: () => void,
   ) {
     super();
     this.point = point;
@@ -142,7 +143,7 @@ export class CardOverlay extends Component {
     if (point) this.point = point;
     const rects = visibleAnchorRects(this.anchor.node);
     if (!this.anchor.node.isConnected || rects.length === 0) {
-      this.close(false);
+      this.anchorUnavailable();
       return;
     }
     const bounds = anchorBounds(this.anchor.node);

@@ -29,7 +29,10 @@ export async function verifyReviewContent(page, fixture, scenario) {
         range: node.getAttribute("data-marginote-editor-anchor").split(":").map(Number),
       }));
       if (kind === "mixed")
-        assert.match(await page.locator(".marginote-content").innerText(), /직접 만든 추상 도형/);
+        assert.match(
+          await page.locator(".marginote-content").innerText(),
+          /Three folded pages share one continuous line/,
+        );
       await page.screenshot({ path: `.qa/evidence/review-live-${kind}.png`, scale: "css" });
       if (kind === "image") await closeCard(page);
       else await page.getByRole("button", { name: "Close annotation", exact: true }).click();
@@ -84,7 +87,10 @@ export async function verifyReviewContent(page, fixture, scenario) {
           await anchor.click();
           await assertCard(page, kind);
           if (name === "Other")
-            assert.match(await page.locator(".marginote-content").innerText(), /다른 의미/);
+            assert.match(
+              await page.locator(".marginote-content").innerText(),
+              /Another perspective/,
+            );
         }
       }
       const final = editorAnchor(page, "Markdown preview QA");

@@ -48,7 +48,7 @@ try {
   });
   await scenario("identical aliases resolve to distinct cards", async () => {
     await readingLink(page, "Annotations/Other text").click();
-    assert.match(await page.locator(".marginote-content").innerText(), /다른 의미/);
+    assert.match(await page.locator(".marginote-content").innerText(), /Another perspective/);
     await closeCard(page);
   });
   await scenario("keyboard Space and Escape restore the anchor focus", async () => {
@@ -89,7 +89,7 @@ try {
       "Missing note",
       "Annotations/Bad schema",
       "Annotations/Bad kind",
-      "Annotations/Text#관찰하며 배우기",
+      "Annotations/Text#Learning by observation",
     ])
       assert.ok(
         !(await readingLink(page, target).getAttribute("class")).includes("marginote-anchor"),
@@ -111,9 +111,13 @@ try {
     "nearby mode keeps passive content noninteractive and hidden from accessibility",
     async () => {
       await preferences(page, "cards", "nearby");
+      await page.mouse.move(40, 40);
+      await page.evaluate(
+        () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))),
+      );
       const bounds = await readingLink(page, "Annotations/Text").boundingBox();
       assert.ok(bounds);
-      await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height + 30);
+      await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height + 8);
       await assertCard(page, "text");
       assert.equal(await page.locator(".marginote-layer").getAttribute("aria-hidden"), "true");
       assert.equal(

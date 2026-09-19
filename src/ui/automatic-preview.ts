@@ -15,6 +15,7 @@ type PreviewActions = {
   readonly current: () => ActivePreview | null;
   readonly open: (anchor: AnnotationAnchor, intent: "hover" | "nearby", point: Point) => void;
   readonly close: () => void;
+  readonly hide: () => void;
   readonly move: (point: Point) => void;
 };
 
@@ -172,7 +173,11 @@ export class AutomaticPreview extends Component {
         best = { anchor, proximity };
     }
     if (best?.anchor !== this.suppressed) this.suppressed = null;
-    if (!best || best.anchor === this.suppressed) {
+    if (!best) {
+      this.actions.hide();
+      return;
+    }
+    if (best.anchor === this.suppressed) {
       this.stop();
       return;
     }

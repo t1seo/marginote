@@ -48,7 +48,7 @@ export async function captureListingScreenshots(page, paths, directory) {
     await capture(name);
   }
   await closeCard(page);
-  await preferences(page, "cards", "hover");
+  await preferences(page, "cards", "nearby");
   await page.evaluate(() => {
     app.setting.open();
     app.setting.openTabById("marginote");

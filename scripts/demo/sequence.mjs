@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { setTimeout as pause } from "node:timers/promises";
 import { assertCard, closeCard, readingLink } from "../qa/preview-driver.mjs";
 import { assertEnglishSurface } from "./language.mjs";
-import { caption } from "./overlays.mjs";
+import { showNearby } from "./nearby.mjs";
+import { assertCaptionClear, caption } from "./overlays.mjs";
+import { showScrolling } from "./scroll.mjs";
 
 export function createPointer(page) {
   let previous = { x: 1050, y: 650 };
@@ -37,7 +39,7 @@ async function showSetting(page, move, label, value, mark) {
   await move(box.centerX, box.centerY, 450);
   await select.selectOption(value);
   await assertEnglishSurface(page);
-  mark();
+  await mark();
   await pause(850);
   await page.keyboard.press("Escape");
   await page.locator(".modal-container").waitFor({ state: "hidden" });
@@ -45,30 +47,14 @@ async function showSetting(page, move, label, value, mark) {
 
 export async function performDemo(page, paths, recording) {
   const markers = [];
-  const mark = (name) => markers.push({ name, seconds: recording.elapsed() });
+  const mark = async (name) => {
+    const caption = await assertCaptionClear(page);
+    markers.push({ name, seconds: recording.elapsed(), caption });
+  };
   const move = createPointer(page);
-  await caption(page, "01 · Near the text — an optional way to explore");
-  await pause(1000);
-  const text = await bounds(readingLink(page, paths.text));
-  await move(text.centerX - 125, text.y + text.height + 14, 1000);
-  await assertCard(page, "text");
-  await assertEnglishSurface(page);
-  mark("nearby-text");
-  await move(text.centerX + 110, text.y + text.height + 24, 1500);
-  await pause(600);
+  const nearby = await showNearby(page, paths, move, mark);
 
-  const image = await bounds(readingLink(page, paths.image));
-  await move(image.centerX + 125, image.y + image.height + 8, 1200);
-  await assertCard(page, "image");
-  await page.waitForFunction(() => document.querySelector(".marginote-card img")?.naturalWidth > 0);
-  await assertEnglishSurface(page);
-  mark("nearby-image");
-  await move(image.centerX - 70, image.y + image.height + 10, 1300);
-  await pause(700);
-  assert.equal(await page.locator(".hover-popover:visible").count(), 0);
-  await closeCard(page);
-
-  await caption(page, "02 · On hover by default — read the card, then click to pin");
+  await caption(page, "03 · Prefer a still card? Choose Over link, then click to pin");
   await showSetting(page, move, "Automatic preview", "hover", () => mark("hover-settings"));
   const hoverText = await bounds(readingLink(page, paths.text));
   await move(hoverText.centerX, hoverText.centerY, 900);
@@ -76,30 +62,33 @@ export async function performDemo(page, paths, recording) {
   await pause(500);
   const hoverCard = await bounds(page.locator(".marginote-content"));
   await move(hoverCard.centerX, hoverCard.centerY, 180);
-  await pause(1220);
+  await pause(850);
   assert.equal(await page.locator(".marginote-card").count(), 1);
+  const stationary = await bounds(page.locator(".marginote-content"));
+  assert.ok(Math.abs(stationary.x - hoverCard.x) < 1 && Math.abs(stationary.y - hoverCard.y) < 1);
   await page.mouse.click(hoverCard.centerX, hoverCard.centerY);
-  mark("hover-pinned");
+  await mark("hover-pinned");
   await move(1090, 650, 900);
-  await pause(1400);
+  await pause(1000);
   assert.equal(await page.locator(".marginote-card").count(), 1);
   await assertEnglishSurface(page);
   await closeCard(page);
 
-  await caption(page, "03 · Preview ordinary notes — choose the links you want");
+  await showScrolling(page, paths, move, mark);
+  await caption(page, "05 · Preview ordinary notes — choose the links you want");
   await showSetting(page, move, "Preview content", "notes", () => mark("note-settings"));
   const note = await bounds(readingLink(page, paths.note));
   await move(note.centerX, note.centerY, 1000);
   await assertCard(page, "note");
   assert.match(await page.locator(".marginote-note-title").innerText(), /Reading journal/);
   await assertEnglishSurface(page);
-  mark("ordinary-note");
+  await mark("ordinary-note");
   await pause(900);
   const noteCard = await bounds(page.locator(".marginote-content"));
   await move(noteCard.centerX, noteCard.centerY, 180);
-  await pause(2070);
+  await pause(1800);
   assert.equal(await page.locator(".marginote-card").count(), 1);
   await caption(page, "Keep your place. Bring the details closer. · Marginote");
-  await pause(1800);
-  return markers;
+  await pause(1300);
+  return { markers, behavior: { nearby, hoverStationary: true, clickPinning: true } };
 }
