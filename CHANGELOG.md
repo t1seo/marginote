@@ -5,7 +5,7 @@
 - Make both preview settings searchable in Obsidian 1.13 and later while preserving the settings panel on 1.10.6.
 - Keep settings changes, saved preferences, and view refreshes consistent across the legacy panel and modern search results.
 - Remove unused validation-library codecs from the plugin bundle while preserving card validation and settings recovery.
-- Use explicit text-decoration properties for the same dotted underline across supported host versions.
+- Use a dotted bottom border for anchor underlines, with compatible CSS in both preview modes.
 - Generate signed GitHub build provenance for all three release assets and verify the published downloads against the release source.
 
 ## 0.1.1
