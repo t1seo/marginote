@@ -2,13 +2,13 @@
 
 ## Current correction: 0.1.1
 
-**Preparation verdict: PASS / HIGH.** Five independent perspectives reviewed the frozen 0.1.1 candidate, including the [proximity correction](proximity-qa.md), complete application QA, and the corrected English recording. This approves release preparation; public 0.1.1 publication, downloaded-byte QA, and Community submission still require their own evidence.
+**Preparation verdict: PASS / HIGH.** Five independent perspectives reviewed the frozen 0.1.1 candidate, including the [proximity correction](proximity-qa.md), complete application QA, and the corrected English recording. This approves release preparation; publication, downloaded-byte QA, and Community submission are recorded separately as they occur.
 
 | Perspective | Verdict | Final evidence |
 | --- | --- | --- |
 | Goal and constraints | PASS / HIGH | Both modes, left/below/right activation and following, saved preferences, source preservation, complete English media |
 | Code quality | PASS / HIGH | Pointer lifecycle, owner identity, Reading adoption, suppression before any card opens, 19 proximity browser checks |
-| Security and privacy | PASS | Window-local pointer state, no new network or file access, existing data preservation; final committed export audit follows |
+| Security and privacy | PASS | Window-local pointer state, no new network or file access, existing data preservation; final 171-file committed export and independent public history audited |
 | Hands-on application QA | PASS / HIGH | 72 base checks + 14 proximity + eight direction + four boundary + three observer checks, zero runtime errors; coverage overlaps |
 | Repository context | PASS / HIGH | Current authorization, English/public-link boundaries, historical failures and pending publication stages clearly separated |
 
@@ -16,11 +16,17 @@ The final source gate passed 276 tests and 326 Bun assertions. Candidate bundle 
 
 Independent media review opened 13 MP4 frames, eight GIF frames, the poster, and five listing PNGs. Both media decoded fully; the 21 extracted video/GIF images matched their decoded frame hashes. The 38.6-second GIF shows all six directional samples with the complete mixed-card body visible. The earlier caption overlap was corrected in the recording aid without changing product code. See [demo QA](demo-qa.md).
 
+### Final delivery audit
+
+**PASS / HIGH for the completed delivery stages.** An independent reviewer verified the public 0.1.1 tag, successful source/release workflows, all three asset digests, the actual downloaded application's 101-check evidence, and preservation of its 313 preceding content files. The reviewer also fetched the public Community listing without authentication and visually inspected all five delivered gallery images. The original GIF remained animated in the README-derived Overview.
+
+The Community scan has zero blocking errors, two warnings, and one recommendation, described in [submission status](submission.md). A separate hands-on reviewer could not find Marginote in the native Obsidian 1.10.6 directory after three normal searches; that installation path remains unverified. The successful GitHub download installation is not counted as a native-directory install. Final teardown stopped only recorded QA processes and retained the vault, backups, and personal Obsidian instance. This limitation does not invalidate the completed release checks, and it is not reported as a passing installation check.
+
 ### Reading adoption checkpoint before proximity changes
 
-The later [downloaded 0.1.0 application review](downloaded-app-qa.md) reproduced four Reading view pop-out failures and supersedes the earlier passing gate below. Community submission is held until the correction and its published assets pass verification.
+The later [downloaded 0.1.0 application review](downloaded-app-qa.md) reproduced four Reading view pop-out failures and superseded the earlier passing gate below. At that checkpoint, Community submission was held until the correction and its published assets passed verification.
 
-That 0.1.1 candidate rebinds Reading view sections when their owner document changes, with one observer per document and cleanup on window closure or plugin unload. Independent code-quality and security reviews passed at that checkpoint. The 275-test release gate and nine browser DOM/lifecycle checks passed, and all four previously failing behaviors passed in real Obsidian with that candidate. The wider run stopped with one undetermined hover-persistence failure; [the partial record](patch-qa.md) preserves its exact result. Complete verification of the later candidate and published download is still required.
+That 0.1.1 candidate rebinds Reading view sections when their owner document changes, with one observer per document and cleanup on window closure or plugin unload. Independent code-quality and security reviews passed at that checkpoint. The 275-test release gate and nine browser DOM/lifecycle checks passed, and all four previously failing behaviors passed in real Obsidian with that candidate. The wider run stopped with one undetermined hover-persistence failure; [the partial record](patch-qa.md) preserves its exact result. At that checkpoint, complete candidate and downloaded-asset verification remained outstanding.
 
 ## Historical 0.1.0 preparation review
 

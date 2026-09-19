@@ -1,6 +1,6 @@
 # Proximity preview correction
 
-Status: **Final local candidate application QA passed; release-download and Community verification remain pending.** The observations below are from real Obsidian 1.10.6 in the isolated QA vault on September 19, 2026. They are separate from the earlier [Reading pop-out candidate](patch-qa.md) and [downloaded 0.1.0 result](downloaded-app-qa.md).
+Status: **Final candidate and actual downloaded 0.1.1 application QA passed; Community review is tracked separately.** The observations below are from real Obsidian 1.10.6 in the isolated QA vault on September 19, 2026. They are separate from the earlier [Reading pop-out candidate](patch-qa.md) and [downloaded 0.1.0 result](downloaded-app-qa.md).
 
 ## Report and source comparison
 
@@ -54,8 +54,8 @@ Three pop-out close cycles disconnected their Reading observers and removed empt
 
 All **277 pre-existing content files** retained their hashes; the vault held 301 files after new QA fixtures. Previous plugin/data backups remained intact. No runtime errors were collected. The app was left on the English demo in Reading View at the top with cards / nearby, zero pop-outs, and no temporary probes; CDP was disconnected before the recording owner took over.
 
-Directional assertions are now maintained in `scripts/qa/nearby-directions.mjs`, called by `scripts/qa/nearby.mjs`. This candidate executed the original 14 checks plus the same eight direction checks separately. The integrated 22-check runner will be run against the actual downloaded release. The original failing run and the earlier incomplete candidate remain preserved.
+Directional assertions are now maintained in `scripts/qa/nearby-directions.mjs`, called by `scripts/qa/nearby.mjs`. This candidate executed the original 14 checks plus the same eight direction checks separately. The integrated 22-check runner subsequently passed against the actual downloaded 0.1.1 release; see [downloaded application QA](downloaded-app-qa.md#current-release-011). The original failing run and the earlier incomplete candidate remain preserved.
 
-## Remaining release gate
+## Delivery result
 
-The updated English recording shows 150px left, below, and right activation and pointer following in both modes. The 38.6-second GIF and 38.583333-second MP4 use this exact candidate; recording captions have zero overlap with the card or anchor in 2,315 DOM checks. See [demo verification](demo-qa.md). Independent final media and preparation reviews passed. Publication, actual downloaded-asset QA, and Community submission remain pending. Browser receipts are retained under `.qa/nearby-browser/`; application and build receipts are under `.qa/release/proximity-0.1.1/`, with the final application summary in `candidate-final/summary.json`.
+The updated English recording shows 150px left, below, and right activation and pointer following in both modes. The 38.6-second GIF and 38.583333-second MP4 use this exact candidate; recording captions have zero overlap with the card or anchor in 2,315 DOM checks. See [demo verification](demo-qa.md). Independent final media and preparation reviews passed. Version 0.1.1 was published and its actual downloaded files passed the full 101-check application verification. The Community listing is public with no blocking review errors; native-directory installation remains unverified because the entry did not appear in the tested app's search. See [directory status](submission.md). Browser receipts are retained under `.qa/nearby-browser/`; application and build receipts are under `.qa/release/proximity-0.1.1/`, with the final application summary in `candidate-final/summary.json`.

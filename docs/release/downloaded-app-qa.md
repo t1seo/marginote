@@ -1,5 +1,24 @@
 # Downloaded release application QA
 
+## Current release: 0.1.1
+
+**PASS — actual publicly downloaded [0.1.1 assets](https://github.com/t1seo/marginote/releases/tag/0.1.1), freshly installed in isolated Obsidian 1.10.6.** Verified September 19, 2026. All three downloaded, installed, and tagged-build hashes agree; GitHub asset digests agree too. See [published asset identity](verification.md#published-asset-identity).
+
+| Executed group | Result |
+| --- | --- |
+| Maintained 66 scenarios, four Reading pop-out regressions, fresh defaults, active-pop-out disable | 72 passed |
+| Integrated proximity runner, including left/below/right cold activation and continuous paths in both modes | 22 passed |
+| Additional pane and pop-out boundaries | Four passed |
+| Observer and empty-controller lifecycle | Three passed |
+
+The 101 counted execution checks overlap in behavior. Four duplicate boundary guards and two modifier-key combinations intercepted by the host are excluded from the count. The unchanged 31-second stationary-hover assertion passed. All four original Reading pop-out failures and all four stationary-pointer scrolling failures now pass against the actual release download.
+
+The preceding plugin folder and its settings were backed up outside the vault before installing exactly the three downloaded files. A fresh runtime instance reported version 0.1.1, null saved data, and cards / nearby in the actual settings UI. All **313 pre-existing content files** retained their hashes, as did every previous-installation backup file. Tests created 24 new fixture files; the final vault contained 337 files. No notes or images were deleted, and no page or error-level console errors were collected.
+
+Cleanup closed every pop-out, restored temporary observer constructors and instance methods, removed event probes, and performed a native fresh enable. The remaining main-window controller had correct document ownership, no card, and no pending task. CDP was disconnected after leaving the English Demo 8 at the top in Reading View with cards / nearby. Final process shutdown is recorded in release verification. Raw results are retained under ignored `.qa/release/downloaded-0.1.1-app/`; its `summary.json` and `cleanup.json` record exact provenance and preservation.
+
+## Historical release: 0.1.0
+
 Release: **[Marginote 0.1.0](https://github.com/t1seo/marginote/releases/tag/0.1.0)**. Verdict: **FAIL — further release approval blocked by Reading View pop-out document ownership**. Confidence: **high**. Verified on **2026-09-19** in Obsidian **1.10.6**.
 
 The actual published assets were downloaded, verified, and cleanly installed. All **66 maintained scenarios**, the fresh-installation check, and the active-pop-out unload check passed. Inspection of the unload evidence exposed an additional defect: some Reading View links in a new pop-out remain registered with the main window's controller. Four new regression scenarios reproduced the ownership, Escape, outside-click, and hover failures. The complete result is **68 passed and 4 failed**; the passing scenarios do not override the newly observed defect.

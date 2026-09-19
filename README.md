@@ -111,7 +111,7 @@ If you already use [BRAT](https://github.com/TfTHacker/obsidian42-brat), add `ht
 
 ### Community directory
 
-Community submission and review are tracked separately from GitHub releases. See the [submission status](docs/release/submission.md) for the observed status and installation availability.
+The [Marginote Community page](https://community.obsidian.md/plugins/marginote) is public. On September 19, 2026, Marginote was still absent from the in-app directory search tested in Obsidian 1.10.6. Until it appears there, use the GitHub release instructions above. See the [submission status](docs/release/submission.md) for the review and installation observations.
 
 ## Sample vault
 

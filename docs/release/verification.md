@@ -1,6 +1,6 @@
 # Release verification
 
-**Marginote 0.1.1: local candidate checks passed; publication, downloaded-asset QA, and Community submission are pending.** Verification date: September 19, 2026.
+**[Marginote 0.1.1 is published](https://github.com/t1seo/marginote/releases/tag/0.1.1). Candidate and actual downloaded-application QA passed. The Community review is complete and the listing is public; its two warnings, one recommendation, and native installation checkpoint are recorded separately.** Verification date: September 19, 2026.
 
 This patch restores pointer-following proximity previews as the fresh-install default, preserves their pointer across scrolling and editor virtualization, and fixes Reading View links adopted into a pop-out window. Saved trigger choices remain intact. The new English demonstration shows activation to the left, below, and right in Reading View and Live Preview.
 
@@ -15,7 +15,7 @@ The published [0.1.0 release](https://github.com/t1seo/marginote/releases/tag/0.
 | Proximity browser regression | 19 Chrome DOM checks passed; the same set against the previous committed UI had seven failures |
 | Reading adoption browser regression | Nine real DOM/MutationObserver checks passed after the failing-first result |
 | Public export regressions | Seven tests passed, including committed content only, private inventory rejection, symlink rejection, and existing destination preservation |
-| Release validation | Version, exact tag format, host-module boundary, complete license notices, and nonempty assets checked; published-byte identity is still pending |
+| Release validation | Version, exact tag format, host-module boundary, complete license notices, and nonempty assets checked; all three published/downloaded assets match the reviewed build |
 | Dependencies | Lockfile unchanged by 0.1.1; no runtime dependency vulnerabilities reported at the compliance checkpoint |
 
 The test runner reports 326 Bun `expect()` calls; the seven export tests additionally use Node assertions. Browser checks and application checks are separate from this unit-test count.
@@ -38,7 +38,7 @@ The real English demo is a 38.6-second, 960×640 GIF (4,060,784 bytes) and a 38.
 
 Public Markdown is English. Intentional Unicode input regression fixtures remain. The allowlist and link checks exclude private history, reference screenshots, personal paths, authentication data, and private-repository links.
 
-## Candidate asset identity
+## Published asset identity
 
 | Asset | SHA-256 |
 | --- | --- |
@@ -46,7 +46,7 @@ Public Markdown is English. Intentional Unicode input regression fixtures remain
 | `manifest.json` | `1ff0b8b26214e1ae126e956fad38599e4de65f272fad87ff00770245b7e0b41e` |
 | `styles.css` | `7aaec227bd5a3e1069419300f2e7c1cefdaeaa237e257afd315509a0a432cfd1` |
 
-These are the local candidate and installed-candidate hashes. They do not yet establish the identity of a public 0.1.1 download. The release workflow, tag, downloaded files, and fresh installation must be checked separately before Community submission.
+All three actual GitHub downloads match these local candidate hashes, the build from tagged public source, and GitHub’s SHA-256 asset digests. `bun run validate:release --tag 0.1.1 --assets <download-directory>` passed. The stable release was published on September 19, 2026 at 06:21:02 UTC with exactly these three assets. Its tag resolves to `21ed246ae5748d175d3fc662c99b01b646baf5b0`. Actual fresh-install application QA against those downloaded bytes also passed: 72 base checks, 22 integrated proximity checks, four additional window boundaries, and three observer/lifecycle checks. All 313 preceding content files and plugin/settings backups were preserved, with zero runtime errors. See [downloaded application QA](downloaded-app-qa.md#current-release-011).
 
 ## Publication checkpoints
 
@@ -54,13 +54,15 @@ These are the local candidate and installed-candidate hashes. They do not yet es
 | --- | --- |
 | Final local application QA | Passed as detailed above |
 | Final media review | Passed independent visual inspection, full decode, and representative-frame identity checks |
-| Public 0.1.1 source and CI | Pending reviewed export and push |
-| GitHub 0.1.1 release and downloaded assets | Pending |
-| Community submission and installation | Authenticated form prepared; not submitted. See [submission status](submission.md) |
-| Final isolated-process cleanup | Pending completion of downloaded application testing |
+| Public 0.1.1 source and CI | `21ed246ae5748d175d3fc662c99b01b646baf5b0`; [Check passed](https://github.com/t1seo/marginote/actions/runs/35426317703); 171-file committed export and independent history audited |
+| GitHub 0.1.1 release and downloaded assets | [Release workflow passed](https://github.com/t1seo/marginote/actions/runs/35426347943); three downloads and GitHub digests match the reviewed build |
+| Community submission and installation | [Public listing](https://community.obsidian.md/plugins/marginote) published; review complete with zero blocking errors and byte-for-byte build reproduction. Native installation remains unverified because in-app search returned no result. See [submission status](submission.md) |
+| Final isolated-process cleanup | Passed: the recorded QA process and all recorded children stopped; its debugging endpoint closed; the excluded personal Obsidian instance remained running; vault and backups preserved |
 
 The public repository has independent history rooted at `4c74448a8a80b00ee2427affaef7c36dcfb578b7`. Its initial [Check](https://github.com/t1seo/marginote/actions/runs/35422279462) and [0.1.0 release workflow](https://github.com/t1seo/marginote/actions/runs/35422326882) passed. Those historical results are not a substitute for verification of 0.1.1.
 
 ## Limits
 
 Physical mobile devices, physical touch, operating-system IME candidate selection, all community themes, all older Obsidian versions, and comprehensive screen-reader/WCAG certification are not verified. Automated Chromium touch/composition checks are identified as such. GitHub publication, Community scanner results, submission acceptance, and installation availability are separate observations.
+
+The native directory search returned no Marginote result in three attempts, including two normal modal reopenings, through 06:43:19 UTC. Its installed-only filter was off, and a control search worked. The public legacy registry also lacked the entry when checked at 06:42:01 UTC. The reason and availability timing are undetermined; no native directory installation or subsequent installation smoke test is claimed. The actual GitHub download installation passed the 101 checks above. Existing plugin/settings files and all 337 content files remained intact during the directory check.
