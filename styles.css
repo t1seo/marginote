@@ -1,0 +1,160 @@
+.markdown-rendered .marginote-anchor,
+.markdown-source-view .marginote-anchor,
+.markdown-source-view .marginote-anchor .cm-underline {
+  color: var(--text-normal);
+  text-decoration: underline dotted var(--text-muted);
+  text-underline-offset: 4px;
+  cursor: pointer;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.marginote-anchor:focus-visible {
+  outline: 1px solid var(--text-normal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.marginote-layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-popover, 30);
+  pointer-events: none;
+  color: var(--text-normal);
+}
+
+.marginote-connector {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  stroke: var(--text-normal);
+  stroke-width: 1px;
+}
+
+.marginote-endpoint {
+  fill: var(--background-primary);
+}
+
+.marginote-card {
+  position: absolute;
+  box-sizing: border-box;
+  width: 390px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--text-normal);
+  border-radius: 4px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-family: var(--font-text);
+  font-size: var(--font-text-size);
+  line-height: 1.55;
+  box-shadow: none;
+}
+
+.marginote-layer.is-interactive .marginote-card {
+  pointer-events: auto;
+}
+.marginote-layer.is-preview {
+  pointer-events: none;
+}
+.marginote-content {
+  padding: 22px 24px;
+  overflow-wrap: anywhere;
+}
+.marginote-content > :first-child {
+  margin-top: 0;
+}
+.marginote-content > :last-child {
+  margin-bottom: 0;
+}
+.marginote-content h1,
+.marginote-content h2,
+.marginote-content h3 {
+  font-size: 1em;
+  line-height: 1.45;
+  font-weight: 650;
+  margin: 0 0 16px;
+}
+.marginote-content p {
+  margin: 0 0 14px;
+}
+.marginote-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.marginote-content .internal-embed {
+  max-width: 100%;
+}
+.marginote-card[data-kind="image"] .marginote-content {
+  padding: 0;
+}
+.marginote-card[data-kind="image"] .marginote-content p {
+  margin: 0;
+}
+.marginote-card[data-kind="image"] .marginote-content img {
+  width: 100%;
+}
+.marginote-unavailable {
+  padding: 16px;
+  color: var(--text-muted);
+}
+
+.marginote-controls {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--background-primary);
+  border-bottom: 1px solid var(--background-modifier-border);
+  z-index: 1;
+}
+.marginote-controls button {
+  height: auto;
+  padding: 3px 5px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+.marginote-controls button:hover,
+.marginote-controls button:focus-visible {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.marginote-authoring textarea {
+  min-height: 140px;
+  width: 100%;
+  resize: vertical;
+}
+.marginote-authoring-error {
+  color: var(--text-error);
+}
+
+.markdown-rendered a.marginote-anchor:hover {
+  color: var(--text-normal);
+  text-decoration: underline dotted var(--text-muted);
+}
+.marginote-note-meta {
+  padding: 16px 24px 0;
+}
+.marginote-note-title {
+  display: block;
+}
+.marginote-note-meta small {
+  display: block;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.marginote-excerpt-note {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+.marginote-settings-summary {
+  border-left: 2px solid var(--background-modifier-border);
+  padding-left: 12px;
+}

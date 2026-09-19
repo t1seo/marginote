@@ -1,0 +1,37 @@
+# Releasing Marginote
+
+The public source repository is `t1seo/marginote`. Release tags must match the manifest version exactly, for example `0.1.0`, without a `v` prefix.
+
+## Prepare and verify
+
+1. Update `package.json`, `manifest.json`, and the entry in `versions.json` together. Keep the minimum supported Obsidian version honest.
+2. Update `CHANGELOG.md`, English user documentation, and any affected sample/demo assets.
+3. Run `bun install --frozen-lockfile` and `bun run check:release`.
+4. Test the candidate in an isolated Obsidian vault, including the behavior changed in this version. Preserve the recorded application/version, source hashes, and limitations.
+5. Review the diff and verify CI on the exact main commit before creating a tag.
+
+## Publish installation assets
+
+Push the matching version tag to the public repository. The release workflow builds the tagged source with the frozen lockfile and attaches:
+
+- `main.js`
+- `manifest.json`
+- `styles.css`
+
+Keep the release description in English. State new behavior, compatibility, installation instructions, and material limitations. Source archives alone are not sufficient for Obsidian installation.
+
+Download all three published assets again. Compare their SHA-256 hashes with the verified tagged build, then install those downloaded files into a separate test vault. Do not replace them with a later local build while testing. Confirm fresh enable, both supported views, all card kinds, ordinary-note previews, settings persistence, editing preservation, and window cleanup.
+
+If a published version needs a correction, increment the patch version and publish a new tag. Do not silently retag or replace an already published release.
+
+## Community directory
+
+The current submission route is the [Obsidian Community directory](https://community.obsidian.md), using an Obsidian account connected to the repository owner's GitHub account. Follow the official [submission guide](https://docs.obsidian.md/plugins/releasing/submit-plugin).
+
+For the initial submission, add `https://github.com/t1seo/marginote` as a new plugin. Review the live form's developer-policy and ongoing-support requirements. Use the Marginote icon, English listing copy, and actual desktop screenshots. After submission, inspect manifest, release assets, source, and build-verification results. Fix actionable errors, publish a new version when required, and request a fresh review.
+
+Distinguish a GitHub release, a submitted entry, a passed automated review, and a published/installable Community listing. Record only observed states in [the submission record](release/submission.md). Do not use the obsolete plugin-list pull-request route.
+
+## Publication boundaries
+
+Only reviewed source, English documentation, original branding, and original sample assets belong in this public repository. Development profiles, personal vault data, original editorial/reference images, credentials, private handoffs, and private Git history are excluded. The release workflow does not access any private source repository.

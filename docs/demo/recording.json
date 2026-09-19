@@ -1,0 +1,140 @@
+{
+  "capture": {
+    "elapsed": 24.454100292000003,
+    "frameCount": 280,
+    "firstTimestamp": 1789792056.93663,
+    "lastTimestamp": 1789792079.573036,
+    "averageCaptureFps": 11.45002255885898,
+    "maximumFrameGap": 1.8176943471757845
+  },
+  "markers": [
+    {
+      "name": "nearby-text",
+      "seconds": 2.2507399169999998
+    },
+    {
+      "name": "nearby-image",
+      "seconds": 6.151139875
+    },
+    {
+      "name": "hover-settings",
+      "seconds": 9.375689083
+    },
+    {
+      "name": "hover-pinned",
+      "seconds": 13.558948625
+    },
+    {
+      "name": "note-settings",
+      "seconds": 17.081694333
+    },
+    {
+      "name": "ordinary-note",
+      "seconds": 19.426626417
+    }
+  ],
+  "gifOptions": {
+    "width": 1080,
+    "fps": 12,
+    "colors": 128
+  },
+  "gifBytes": 2268748,
+  "mp4": {
+    "bytes": 548444,
+    "duration": "24.416667",
+    "streams": [
+      {
+        "width": 1200,
+        "height": 800,
+        "avg_frame_rate": "12/1",
+        "nb_frames": "293"
+      }
+    ]
+  },
+  "gif": {
+    "duration": "24.410000",
+    "frameCount": 293,
+    "frameDelays": [0.08, 0.09],
+    "effectiveFps": 12.003277,
+    "streams": [
+      {
+        "width": 1080,
+        "height": 720,
+        "avg_frame_rate": "25/2",
+        "nb_frames": "293"
+      }
+    ]
+  },
+  "fullDecode": {
+    "mp4": "passed",
+    "gif": "passed"
+  },
+  "verification": ".qa/demo-1789792056589/verification",
+  "language": {
+    "selectedHostLanguage": "English",
+    "verifiedHostLabels": ["General", "Core plugins", "Community plugins"],
+    "versions": {
+      "obsidian": "1.10.6",
+      "plugin": "0.1.0",
+      "electron": "37.10.2",
+      "chromium": "138.0.7204.251",
+      "node": "22.21.1"
+    }
+  },
+  "screenshots": [
+    {
+      "filename": "text-card.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 76691
+    },
+    {
+      "filename": "image-card.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 55502
+    },
+    {
+      "filename": "mixed-card.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 73209
+    },
+    {
+      "filename": "ordinary-note.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 95765
+    },
+    {
+      "filename": "settings.png",
+      "width": 1200,
+      "height": 800,
+      "bytes": 71669
+    }
+  ],
+  "session": {
+    "errors": [],
+    "restored": true,
+    "overlaysRemoved": true,
+    "cdpDisconnected": true,
+    "fixture": "Marginote Demo 5",
+    "originalNotes": {
+      "originalFiles": 188,
+      "unchanged": true,
+      "newFiles": 6
+    },
+    "preparedNotes": {
+      "originalFiles": 194,
+      "unchanged": true,
+      "newFiles": 0
+    }
+  },
+  "testedBuildSha256": "d6b570084aba3fce81c7bdf6b460624e14481324fd9e03dbd015647f5855a4d0",
+  "visualReview": {
+    "status": "passed",
+    "frames": ["nearby-text", "nearby-image", "hover-pinned", "note-settings", "ordinary-note"],
+    "listingScreenshots": ["text-card", "image-card", "mixed-card", "ordinary-note", "settings"],
+    "notes": "All five final intermediate MP4 frames and all five listing PNGs were opened and visually inspected. English text, original artwork, real outlines and connectors, cursor movement, settings, and note content were readable. Listing PNGs contain no cursor or caption documentation overlay."
+  }
+}
